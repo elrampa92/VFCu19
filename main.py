@@ -44,8 +44,12 @@ df_stati = tmp_stati
 for i in range(len(first_row_s)):
   df_stati.drop(first_row_s[i], inplace=True, axis=1)
 
+st.dataframe(df_minutaggi)
 
+df_sum_minuti_giocati = pd.DataFrame({'PLAYER':[],'MINUTI GIOCATI':[]})
+df_sum_minuti_giocati['PLAYER'] = df_minutaggi['PLAYER']
+df_sum_minuti_giocati['MINUTI GIOCATI'] = df_minutaggi.sum(axis=1)
 
+st.dataframe(df_sum_minuti_giocati)
 
-
-st.write(df_minutaggi)
+st.bar_chart(df_sum_minuti_giocati)
