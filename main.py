@@ -52,4 +52,4 @@ df_sum_minuti_giocati['MINUTI GIOCATI'] = df_minutaggi.sum(axis=1)
 
 st.dataframe(df_sum_minuti_giocati)
 
-st.bar_chart(df_sum_minuti_giocati)
+st.bar_chart(x = df_sum_minuti_giocati['PLAYER'], y = df_sum_minuti_giocati['MINUTI GIOCATI'])
