@@ -29,4 +29,4 @@ for i in range(len(first_row)):
   tmp_minutaggi.drop(first_row[i], inplace=True, axis=1)
 
 
-st.write(df_minutaggi)
+st.write(tmp_minutaggi)
