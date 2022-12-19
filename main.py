@@ -23,8 +23,8 @@ for i in range (0, len(first_row),2):
   first_row.remove(fr_tmp[i])
 
 ### CREO DF DEI MINUTAGGI CHE ANDRO' A PULIRE DALLE COLONNE CHE NON SERVONO
-df_minutaggi = pd.DataFrame()
-df_minutaggi = df_minutaggi.append(tmp_minutaggi.iloc[:,[0]])
+#df_minutaggi = pd.DataFrame()
+#df_minutaggi = df_minutaggi.append(tmp_minutaggi.iloc[:,[0]])
 for i in range(len(first_row)):
   tmp_minutaggi.drop(first_row[i], inplace=True, axis=1)
 
