@@ -13,3 +13,4 @@ download = requests.get(url).content
 df_minutaggi = pd.read_csv(url)
 
 st.write(df_minutaggi)
+
