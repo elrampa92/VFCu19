@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+import altair as alt
 from pprint import pprint
 
 st.write("provissima!")
