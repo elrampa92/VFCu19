@@ -21,10 +21,12 @@ cols = len(tmp_minutaggi.axes[1])
 ### CREO LISTA CON INTESTAZIONI
 fr_tmp = tmp_minutaggi.columns.tolist()
 fr_tmp.remove('GIOCATORE')
+fr_tmp.remove('RUOLO')
 
 ### ELIMINO VALORI CHE NON SERVONO X MINUTAGGI
 first_row_m = tmp_minutaggi.columns.tolist()
 first_row_m.remove('GIOCATORE')
+first_row_m.remove('RUOLO')
 for i in range (0, len(first_row_m),2):
   first_row_m.remove(fr_tmp[i])
 
@@ -32,6 +34,7 @@ for i in range (0, len(first_row_m),2):
 ### ELIMINO VALORI CHE NON SERVONO X STATI
 first_row_s = tmp_minutaggi.columns.tolist()
 first_row_s.remove('GIOCATORE')
+first_row_s.remove('RUOLO')
 for i in range (1, len(first_row_s),2):
   first_row_s.remove(fr_tmp[i])
 
@@ -47,8 +50,9 @@ for i in range(len(first_row_s)):
 
 st.dataframe(df_minutaggi)
 
-df_sum_minuti_giocati = pd.DataFrame({'PLAYER':[],'MINUTI GIOCATI':[]})
+df_sum_minuti_giocati = pd.DataFrame({'PLAYER':[],'RUOLO':[],'MINUTI GIOCATI':[]})
 df_sum_minuti_giocati['GIOCATORE'] = df_minutaggi['GIOCATORE']
+df_sum_minuti_giocati['RUOLO'] = df_minutaggi['RUOLO']
 df_sum_minuti_giocati['MINUTI GIOCATI'] = df_minutaggi.sum(axis=1)
 
 st.dataframe(df_sum_minuti_giocati)
