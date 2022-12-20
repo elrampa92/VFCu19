@@ -57,5 +57,5 @@ df_sum_minuti_giocati['MINUTI GIOCATI'] = df_minutaggi.sum(axis=1)
 
 st.dataframe(df_sum_minuti_giocati)
 
-bar_chart = alt.Chart(df_sum_minuti_giocati).mark_bar().encode(x = 'PLAYER', y = 'MINUTI GIOCATI',tooltip=['PLAYER', 'MINUTI GIOCATI'])
+bar_chart = alt.Chart(df_sum_minuti_giocati).mark_bar().encode(x = 'GIOCATORE', y = 'MINUTI GIOCATI',tooltip=['PLAYER', 'MINUTI GIOCATI'])
 st.altair_chart(bar_chart,use_container_width=True)
