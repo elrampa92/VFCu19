@@ -50,7 +50,7 @@ for i in range(len(first_row_s)):
 
 st.dataframe(df_minutaggi)
 
-df_sum_minuti_giocati = pd.DataFrame({'PLAYER':[],'RUOLO':[],'MINUTI GIOCATI':[]})
+df_sum_minuti_giocati = pd.DataFrame({'GIOCATORE':[],'RUOLO':[],'MINUTI GIOCATI':[]})
 df_sum_minuti_giocati['GIOCATORE'] = df_minutaggi['GIOCATORE']
 df_sum_minuti_giocati['RUOLO'] = df_minutaggi['RUOLO']
 df_sum_minuti_giocati['MINUTI GIOCATI'] = df_minutaggi.sum(axis=1)
