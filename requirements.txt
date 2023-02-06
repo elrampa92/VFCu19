@@ -4,3 +4,4 @@ requests
 altair
 openpyxl
 matplotlib
+ipython
