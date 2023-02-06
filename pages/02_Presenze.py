@@ -67,7 +67,7 @@ Minutaggi, Status= st.tabs(["Minutaggi", "Titolare / Subentrato"])
 
 with Minutaggi:
 
-  st.dataframe(df_minutaggi,use_container_width=True, height = 1000)
+  st.dataframe(df_minutaggi,use_container_width=True)
   #st.write(df_minutaggi.to_html(escape=False, index=False), unsafe_allow_html=True)
 
   option = st.selectbox(
