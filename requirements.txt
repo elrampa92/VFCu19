@@ -8,3 +8,4 @@ ipython
 plotly.express
 gsheetsdb
 gspread
+gspread_dataframe
