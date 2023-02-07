@@ -7,3 +7,4 @@ matplotlib
 ipython
 plotly.express
 gsheetsdb
+gspread
