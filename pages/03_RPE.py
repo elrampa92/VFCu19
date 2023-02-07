@@ -6,6 +6,10 @@ import altair as alt
 import matplotlib.pyplot as plt
 from pprint import pprint
 from datetime import date
+from PIL import Image
+
+#image = Image.open('https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/LOGHI/VFC_LOGO.png')
+st.image(image, width=130)
 
 today = date.today()
 # dd/mm/YY
