@@ -5,6 +5,11 @@ import requests
 import altair as alt
 import matplotlib.pyplot as plt
 from pprint import pprint
+from datetime import date
+
+today = date.today()
+# dd/mm/YY
+t_date = today.strftime("%d/%m/%Y")
 
 st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
 st.title("Dati RPE")
