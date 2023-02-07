@@ -34,6 +34,35 @@ Inserimento, Agosto, Settembre, Ottobre, Novembre, Dicembre, Gennaio, Febbraio, 
 	["Inserimento", "Agosto","Settembre","Ottobre","Novembre","Dicembre","Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio"])
 
 with Inserimento:
+	st.text("Insert your RPE value")
+
+	sel_player = st.selectbox(
+		"Who are you?",
+		('BADOUIN NOAH','BORECKI KRYSTIAN','BOUDRI AMIN','BUSATO LORENZO','CAMBER DAVID','CAMOLESE NICOLA',
+		 'DA POZZO LORENZO','ENEM JAY','IVARSSON ISAK','JONSSON KRISTOFER','KARAGIANNIDIS GEORGIOS',
+		 'KYVIK LEO', 'MAGNUSSON ARON','MAKADJI MORRE','MIKAELSSON HILMIR','MOZZO FILIPPO','OKORO ALVIN OBINHA',
+		 'REMY MELVIN','RODRIGUES ALVES JAMES','SALVADOR TOMMASO','SANDBERG GABRIEL','SLOWIKOWSKI ERIK',
+		 'SPERANDIO TOMMASO','VELCEA VALENTIN')
+	)
+	sel_date = st.date_input(
+		"Training session date",)
+	sel_session = st.radio(
+		"Select the session",
+		options=["Morning", "Afternoon"],
+	)
+	st.write("Today is: ",t_date)
+
+
+	rpe = st.selectbox(
+		'Rate effort of the session',
+		(0, 0.3, 0.5, 0.7, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 9, 10, 11), index = 8)
+	#    rpe = st.slider('Rate effort of the session', 0, 10, 3)
+	#    st.write("RPE value",rpe)
+	b_confirm = st.button(label ='Confirm!')
+	if b_confirm:
+	    #st.write(sel_player,"- RPE:", rpe,"during ",sel_session," session on", sel_date)
+	    new_row = {'Player':sel_player, 'Data':f'{sel_date} - {sel_session}', 'RPE':rpe}
+	
 	st.write(df)
 
 with Agosto:
