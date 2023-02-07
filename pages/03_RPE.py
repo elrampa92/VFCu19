@@ -39,6 +39,33 @@ sheet_url = st.secrets["public_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 df = pd.DataFrame(rows)
 
+##########################
+
+import gspread
+from gspread_dataframe import set_with_dataframe
+
+# Authenticate to Google Sheets API
+gc = gspread.service_account()
+
+# Open the Google Sheet
+sh = gc.open_by_key('https://docs.google.com/spreadsheets/d/1-iXD_P4F_9x2rTUcgR1Hi0G5nvuoo527r3Zc6GvT5vY/edit?usp=sharing')
+
+# Select the first sheet in the Google Sheet
+worksheet = sh.get_worksheet(0)
+
+# Get the data as a DataFrame
+df = worksheet.get_as_dataframe()
+
+# Add new data to the DataFrame
+new_data = {'Column 1': [1, 2, 3], 'Column 2': ['A', 'B', 'C']}
+df = df.append(pd.DataFrame(new_data), ignore_index=True)
+
+# Write the DataFrame back to the Google Sheet
+set_with_dataframe(worksheet, df)
+
+st.write(df)
+#########################
+
 Inserimento, Agosto, Settembre, Ottobre, Novembre, Dicembre, Gennaio, Febbraio, Marzo, Aprile, Maggio = st.tabs(
 	["Inserimento", "Agosto","Settembre","Ottobre","Novembre","Dicembre","Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio"])
 
