@@ -68,7 +68,7 @@ with Inserimento:
 	    #st.write(sel_player,"- RPE:", rpe,"during ",sel_session," session on", sel_date)
 	    new_row = {'Player':sel_player, 'Data':f'{sel_date} - {sel_session}', 'RPE':rpe}
 	
-	st.write(df)
+	st.write(new_row)
 
 with Agosto:
 	#st.subheader("RPE - Agosto")
