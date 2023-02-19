@@ -263,4 +263,4 @@ with Cittadella:
 	df_corner_Cittadella['LINK'] = df_corner_Cittadella['LINK'].apply(lambda x: f'<a href="{x}">Link al video</a>')
 	df_corner_vsCittadella['LINK'] = df_corner_vsCittadella['LINK'].apply(lambda x: f'<a href="{x}">Link al video</a>')
 	
-	st.dataframe(df_corner_Cittadella)
+	st.write(df_corner_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
