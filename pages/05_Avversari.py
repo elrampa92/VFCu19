@@ -253,5 +253,15 @@ with Padova:
 				df_corner_vsPadova = df_corner_vsPadova.loc[df_corner_vsPadova['ATTACCA'] == op_avv_vsPadova]
 				st.write(df_corner_vsPadova.to_html(escape=False, index=False), unsafe_allow_html=True)
 
+with Cittadella:
+	
+	squadra = "Cittadella"
 
+	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
+	df_corner_vsCittadella = df_corner.loc[df_corner['DIFENDE'] == squadra]
+
+	df_corner_Cittadella['LINK'] = df_corner_Cittadella['LINK'].apply(lambda x: f'<a href="{x}">Link al video</a>')
+	df_corner_vsCittadella['LINK'] = df_corner_vsCittadella['LINK'].apply(lambda x: f'<a href="{x}">Link al video</a>')
+	
+	st.dataframe(df_corner_Cittadella, escape=False, unsafe_allow_html=True)
 
