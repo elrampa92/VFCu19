@@ -28,6 +28,7 @@ Albinoleffe, Alessandria, Brescia, Cittadella, Como, Cremonese, Feralpisalò, Ge
 	["Albinoleffe","Alessandria","Brescia","Cittadella","Como","Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Padova", "Parma", "Pordenone", "Reggiana", "Spal"])
 
 with Cittadella:
+	
 	squadra = "Cittadella"
 
 	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
@@ -44,9 +45,9 @@ with Cittadella:
 	df_golsubiti_Cittadella = df_golsubiti_Cittadella.drop(columns = ['DIFENDE'])
 	#df_golsubiti_Padova = df_golsubiti_Padova.reset_index()
 
-	
 	df_golfatti_Cittadella['LINK'] = df_golfatti_Cittadella['LINK'].apply(make_clickable)
 	df_golsubiti_Cittadella['LINK'] = df_golsubiti_Cittadella['LINK'].apply(make_clickable)
+	
 
 	Golfatti, Golsubiti, Corner, Punizioni   = st.tabs(["Gol fatti","Gol subiti","Corner","Punizioni"])
 
