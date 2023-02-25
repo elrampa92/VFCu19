@@ -49,16 +49,19 @@ with Cittadella:
 	df_golsubiti_Cittadella['LINK'] = df_golsubiti_Cittadella['LINK'].apply(make_clickable)
 	
 
-	Golfatti, Golsubiti, Corner, Punizioni   = st.tabs(["Gol fatti","Gol subiti","Corner","Punizioni"])
+	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
+	
+	with Gol:
+		
+		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
+			with Golfatti:
 
-	with Golfatti:
-		
-		st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-	
-	with Golsubiti:
-		
-		st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-	
+				st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			with Golsubiti:
+
+				st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+
 
 
 with Como:
