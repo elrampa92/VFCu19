@@ -33,8 +33,8 @@ with Cittadella:
 	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
 	df_corner_vsCittadella = df_corner.loc[df_corner['DIFENDE'] == squadra]
 
-	df_corner_Cittadella['LINK'] = df_corner_Como['LINK'].apply(make_clickable)
-	df_corner_vsCittadella['LINK'] = df_corner_vsComo['LINK'].apply(make_clickable)
+	df_corner_Cittadella['LINK'] = df_corner_Cittadella['LINK'].apply(make_clickable)
+	df_corner_vsCittadella['LINK'] = df_corner_vsCittadella['LINK'].apply(make_clickable)
 
 	df_golfatti_Cittadella = df_gol.loc[df_gol['ATTACCA'] == squadra]
 	df_golfatti_Cittadella = df_golfatti_Cittadella.drop(columns = ['ATTACCA'])
