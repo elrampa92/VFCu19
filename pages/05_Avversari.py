@@ -27,7 +27,7 @@ df_gol = pd.read_excel(url_gol, usecols = "A:I")
 Albinoleffe, Alessandria, Brescia, Cittadella, Como, Cremonese, Feralpisalò, Genoa, LRVicenza, Monza, Padova, Parma, Pordenone, Reggiana, Spal = st.tabs(
 	["Albinoleffe","Alessandria","Brescia","Cittadella","Como","Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Padova", "Parma", "Pordenone", "Reggiana", "Spal"])
 
-with Cittadella
+with Cittadella:
 	squadra = "Cittadella"
 
 	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
