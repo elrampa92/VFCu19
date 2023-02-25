@@ -55,13 +55,13 @@ with Cittadella:
 		
 		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
 		
-			with Golfatti:
+		with Golfatti:
 
-				st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+			st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			with Golsubiti:
+		with Golsubiti:
 
-				st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+			st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
 
