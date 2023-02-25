@@ -62,6 +62,18 @@ with Cittadella:
 		with Golsubiti:
 
 			st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+			
+	with Corner:
+		
+		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
+		
+		with Favore:
+
+			st.write(df_corner_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+		with Contro:
+
+			st.write(df_corner_vsCittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
 
