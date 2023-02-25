@@ -27,6 +27,39 @@ df_gol = pd.read_excel(url_gol, usecols = "A:I")
 Albinoleffe, Alessandria, Brescia, Cittadella, Como, Cremonese, Feralpisalò, Genoa, LRVicenza, Monza, Padova, Parma, Pordenone, Reggiana, Spal = st.tabs(
 	["Albinoleffe","Alessandria","Brescia","Cittadella","Como","Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Padova", "Parma", "Pordenone", "Reggiana", "Spal"])
 
+with Cittadella
+	squadra = "Cittadella"
+
+	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
+	df_corner_vsCittadella = df_corner.loc[df_corner['DIFENDE'] == squadra]
+
+	df_corner_Cittadella['LINK'] = df_corner_Como['LINK'].apply(make_clickable)
+	df_corner_vsCittadella['LINK'] = df_corner_vsComo['LINK'].apply(make_clickable)
+
+	df_golfatti_Cittadella = df_gol.loc[df_gol['ATTACCA'] == squadra]
+	df_golfatti_Cittadella = df_golfatti_Cittadella.drop(columns = ['ATTACCA'])
+	#df_golfatti_Padova = df_golfatti_Padova.reset_index()
+
+	df_golsubiti_Cittadella = df_gol.loc[df_gol['DIFENDE'] == squadra]
+	df_golsubiti_Cittadella = df_golsubiti_Cittadella.drop(columns = ['DIFENDE'])
+	#df_golsubiti_Padova = df_golsubiti_Padova.reset_index()
+
+	
+	df_golfatti_Cittadella['LINK'] = df_golfatti_Cittadella['LINK'].apply(make_clickable)
+	df_golsubiti_Cittadella['LINK'] = df_golsubiti_Cittadella['LINK'].apply(make_clickable)
+
+	Golfatti, Golsubiti, Corner, Punizioni   = st.tabs(["Gol fatti","Gol subiti","Corner","Punizioni"])
+
+	with Golfatti:
+		
+		st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+	
+	with Golsubiti:
+		
+		st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
+	
+
+
 with Como:
 
 	squadra = "Como"
