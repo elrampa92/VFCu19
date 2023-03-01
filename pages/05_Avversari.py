@@ -8,22 +8,6 @@ from IPython.core.display import display, HTML
 import plotly.express as px
 #from streamlit_extras.stoggle import stoggle
 
-from gsheetsdb import connect
-
-# Create a connection object.
-conn = connect()
-
-# Perform SQL query on the Google Sheet.
-# Uses st.cache to only rerun when the query changes or after 10 min.
-@st.cache(ttl = 60)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
-gol_url = st.secrets["gol_gsheets_url"]
-rows = run_query(f'SELECT * FROM "{gol_url}"')
-df = pd.DataFrame(rows)
 
 
 def make_clickable(link):
