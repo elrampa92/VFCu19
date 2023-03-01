@@ -198,7 +198,7 @@ with Como:
 
 with Cremonese:
 	
-	st.dataframe(df)
+	#st.dataframe(df)
 	
 	squadra = "Cremonese"
 
