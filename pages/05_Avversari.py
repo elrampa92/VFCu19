@@ -217,9 +217,6 @@ with Cremonese:
 			
 				st.dataframe(df_golfatti_Cremonese.drop(columns = ['LINK']), use_container_width=True)
 
-				tmpdf_golfatti_Cremonese = df_golfatti_Cremonese['GIOCATORE']
-
-				#tmpdf_golfatti_Cremonese['GOL FATTI'] = tmpdf_golfatti_Cremonese.groupby('GIOCATORE')['GIOCATORE'].transform('count')
 
 				col1, col2, col3, col4 = st.columns(4)
 				with col1:
@@ -241,14 +238,44 @@ with Cremonese:
 					st.dataframe(df_golfatti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golfatti_Cremonese['TIPO'].value_counts(), use_container_width=True)
 
-
-			
 			with Link:
 
 				st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
-			st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+			
+				st.dataframe(df_golsubiti_Cremonese.drop(columns = ['LINK']), use_container_width=True)
+
+
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+					st.dataframe(df_golsubiti_Cremonese['GIOCATORE'].value_counts().head(5), use_container_width=True)
+					st.bar_chart(df_golsubiti_Cremonese['GIOCATORE'].value_counts().sort_values(), use_container_width=True)
+
+				with col2:
+
+					st.dataframe(df_golsubiti_Cremonese['TEMPO'].value_counts(), use_container_width=True)				
+					st.bar_chart(df_golsubiti_Cremonese['TEMPO'].value_counts(), use_container_width=True)
+
+				with col3:
+
+					st.dataframe(df_golsubiti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)				
+					st.bar_chart(df_golsubiti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)
+
+				with col4:
+
+					st.dataframe(df_golsubiti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
+					st.bar_chart(df_golsubiti_Cremonese['TIPO'].value_counts(), use_container_width=True)
+
+			with Link:
+
+				st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
 			
 	with Corner:
 		
