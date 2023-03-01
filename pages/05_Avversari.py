@@ -210,11 +210,11 @@ with Cremonese:
 		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
 		
 		with Golfatti:
-
+			Hello!
 			#st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
-
+			Hello!
 			#st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 			
 	with Corner:
