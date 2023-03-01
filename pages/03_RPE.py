@@ -38,13 +38,7 @@ def run_query(query):
 sheet_url = st.secrets["public_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 df = pd.DataFrame(rows)
-#st.dataframe(df)
 
-def load_data(sheets_url):
-    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
-    return pd.read_csv(csv_url)
-
-df = load_data(st.secrets["public_gsheets_url"])
 st.dataframe(df)
 ##########################
 
