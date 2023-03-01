@@ -210,18 +210,10 @@ with Cremonese:
 		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
 		
 		with Golfatti:
-			hide_table_row_index = """
-		    <style>
-		    thead tr th:first-child {display:none}
-		    tbody th {display:none}
-		    </style>
-		    """
-
-	# Inject CSS with Markdown
-			st.markdown(hide_table_row_index, unsafe_allow_html=True)
+			
 			tmpdf_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['LINK'])
 			
-			st.table(tmpdf_golfatti_Cremonese, use_container_width=True)
+			st.dataframe(tmpdf_golfatti_Cremonese, use_container_width=True)
 			
 			st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
