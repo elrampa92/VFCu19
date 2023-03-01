@@ -194,11 +194,10 @@ with Cremonese:
 
 	df_golfatti_Cremonese = df_gol.loc[df_gol['ATTACCA'] == squadra]
 	df_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['ATTACCA'])
-	#df_golfatti_Padova = df_golfatti_Padova.reset_index()
 
 	df_golsubiti_Cremonese = df_gol.loc[df_gol['DIFENDE'] == squadra]
 	df_golsubiti_Cremonese = df_golsubiti_Cremonese.drop(columns = ['DIFENDE'])
-	#df_golsubiti_Padova = df_golsubiti_Padova.reset_index()
+
 
 	df_golfatti_Cremonese['LINK'] = df_golfatti_Cremonese['LINK'].apply(make_clickable)
 	df_golsubiti_Cremonese['LINK'] = df_golsubiti_Cremonese['LINK'].apply(make_clickable)
@@ -212,11 +211,11 @@ with Cremonese:
 		
 		with Golfatti:
 
-			st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			#st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
 
-			st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			#st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 			
 	with Corner:
 		
