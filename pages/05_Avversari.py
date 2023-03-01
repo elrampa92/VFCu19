@@ -210,6 +210,10 @@ with Cremonese:
 		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
 		
 		with Golfatti:
+			
+			tmpdf_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['LINK'])
+			st.dataframe(tmpdf_golfatti_Cremonese, use_container_width=True)
+			
 			st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
