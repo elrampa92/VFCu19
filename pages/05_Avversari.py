@@ -230,7 +230,7 @@ with Cremonese:
 
 			with Stats:
 
-				st.subheader(f'Tabella gol fatti {squadra}')
+				st.subheader(f'Tabella gol fatti :blue[{squadra}]')
 				st.dataframe(df_golfatti_Cremonese.drop(columns = ['LINK']), use_container_width=True)
 
 
