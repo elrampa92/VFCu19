@@ -241,7 +241,8 @@ with Cremonese:
 
 				with col2:
 
-					st.dataframe(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)				
+					st.dataframe(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)	
+					st.empty()
 					st.bar_chart(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)
 
 				with col3:
