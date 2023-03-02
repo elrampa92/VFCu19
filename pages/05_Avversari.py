@@ -236,24 +236,23 @@ with Cremonese:
 
 				col1, col2, col3, col4 = st.columns(4)
 				with col1:
-					st.dataframe(df_golfatti_Cremonese['GIOCATORE'].value_counts().head(5), use_container_width=True)
 					st.bar_chart(df_golfatti_Cremonese['GIOCATORE'].value_counts().sort_values(), use_container_width=True)
+					st.dataframe(df_golfatti_Cremonese['GIOCATORE'].value_counts().head(5), use_container_width=True)
 
 				with col2:
-
-					st.dataframe(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)	
-					st.empty()
 					st.bar_chart(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)	
+					
 
 				with col3:
-
-					st.dataframe(df_golfatti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golfatti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)				
+					
 
 				with col4:
-
-					st.dataframe(df_golfatti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golfatti_Cremonese['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
+					
 
 			with Link:
 
