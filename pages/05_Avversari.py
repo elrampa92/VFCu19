@@ -6,8 +6,21 @@ import altair as alt
 from pprint import pprint
 from IPython.core.display import display, HTML
 import plotly.express as px
-#from streamlit_extras.stoggle import stoggle
+from gsheetsdb import connect
 
+# Create a connection object.
+conn = connect()
+# Perform SQL query on the Google Sheet.
+# Uses st.cache to only rerun when the query changes or after 10 min.
+@st.cache(ttl = 60)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
+sheet_url = st.secrets["gol_gsheets_url"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+df_gol = pd.DataFrame(rows)
+df_gol = df_gol.drop(columns = ['CT'])
 
 
 def make_clickable(link):
@@ -24,7 +37,7 @@ url_corner = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/
 df_corner = pd.read_excel(url_corner, usecols = "A:I")
 
 url_gol = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/GOL.xlsx"
-df_gol = pd.read_excel(url_gol, usecols = "A:I")
+#df_gol = pd.read_excel(url_gol, usecols = "A:I")
 
 Albinoleffe, Alessandria, Brescia, Cittadella, Como, Cremonese, Feralpisalò, Genoa, LRVicenza, Monza, Padova, Parma, Pordenone, Reggiana, Spal = st.tabs(
 	["Albinoleffe","Alessandria","Brescia","Cittadella","Como","Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Padova", "Parma", "Pordenone", "Reggiana", "Spal"])
