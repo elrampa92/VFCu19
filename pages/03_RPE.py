@@ -38,7 +38,7 @@ def run_query(query):
 sheet_url = st.secrets["gol_gsheets_url"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 df = pd.DataFrame(rows)
-df = df.drop(columns = ['LINK', 'CT']
+df = df.drop(columns = ['LINK', 'CT'])
 
 st.dataframe(df)
 ##########################
