@@ -233,7 +233,7 @@ with Cremonese:
 				st.subheader(f'Tabella gol fatti :blue[{squadra}]')
 				st.dataframe(df_golfatti_Cremonese.drop(columns = ['LINK']), use_container_width=True)
 
-
+				st.subheader(f'Statistiche sui gol fatti :blue[{squadra}]')
 				col1, col2, col3, col4 = st.columns(4)
 				with col1:
 					st.bar_chart(df_golfatti_Cremonese['GIOCATORE'].value_counts().sort_values(), use_container_width=True)
