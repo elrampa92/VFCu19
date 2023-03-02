@@ -8,6 +8,10 @@ from IPython.core.display import display, HTML
 import plotly.express as px
 from gsheetsdb import connect
 
+st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
+st.title("Avversari")
+
+
 # Create a connection object.
 conn = connect()
 # Perform SQL query on the Google Sheet.
@@ -30,8 +34,7 @@ def make_clickable(link):
     text = link.split('=')[0]
     return f'<a target="_blank" href="{link}">{"video"}</a>'
 
-#st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
-st.title("Avversari")
+
 
 url_corner = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/CORNER.xlsx" # Make sure the url is the raw version of the file on GitHub
 df_corner = pd.read_excel(url_corner, usecols = "A:I")
