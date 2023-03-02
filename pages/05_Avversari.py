@@ -30,7 +30,7 @@ def make_clickable(link):
     text = link.split('=')[0]
     return f'<a target="_blank" href="{link}">{"video"}</a>'
 
-st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
+#st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
 st.title("Avversari")
 
 url_corner = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/CORNER.xlsx" # Make sure the url is the raw version of the file on GitHub
