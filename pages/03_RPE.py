@@ -24,23 +24,7 @@ df_rpe_ottobre = pd.read_csv(url_rpe)
 
 from gsheetsdb import connect
 
-# Create a connection object.
-conn = connect()
 
-# Perform SQL query on the Google Sheet.
-# Uses st.cache to only rerun when the query changes or after 10 min.
-@st.cache(ttl = 60)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
-sheet_url = st.secrets["gol_gsheets_url"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-df = pd.DataFrame(rows)
-df = df.drop(columns = ['LINK', 'CT'])
-
-st.dataframe(df)
 ##########################
 
 #import gspread
