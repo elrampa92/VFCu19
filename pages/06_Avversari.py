@@ -202,10 +202,15 @@ with Cremonese:
 	squadra = "Cremonese"
 
 	df_corner_Cremonese = df_corner.loc[df_corner['ATTACCA'] == squadra]
-	df_corner_vsCremonese = df_corner.loc[df_corner['DIFENDE'] == squadra]
-
 	df_corner_Cremonese['LINK'] = df_corner_Cremonese['LINK'].apply(make_clickable)
+	df_corner_Cremonese = df_corner_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	df_corner_Cremonese = df_corner_Cremonese.drop(columns = ['ATTACCA'])
+
+	df_corner_vsCremonese = df_corner.loc[df_corner['DIFENDE'] == squadra]
 	df_corner_vsCremonese['LINK'] = df_corner_vsCremonese['LINK'].apply(make_clickable)
+	df_corner_vsCremonese = df_corner_vsCremonese.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	df_corner_vsCremonese = df_corner_vsCremonese.drop(columns = ['DIFENDE'])
+
 
 	df_golfatti_Cremonese = df_gol.loc[df_gol['ATTACCA'] == squadra]
 	df_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['ATTACCA'])
@@ -216,6 +221,9 @@ with Cremonese:
 
 	df_golfatti_Cremonese['LINK'] = df_golfatti_Cremonese['LINK'].apply(make_clickable)
 	df_golsubiti_Cremonese['LINK'] = df_golsubiti_Cremonese['LINK'].apply(make_clickable)
+
+	df_golfatti_Cremonese = df_golfatti_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	df_golsubiti_Cremonese = df_golsubiti_Cremonese.rename(columns =  {'ATTACCA' : 'SQUADRA'})
 	
 
 	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
@@ -236,8 +244,13 @@ with Cremonese:
 				st.subheader(f'Statistiche sui gol fatti :blue[{squadra}]')
 				col1, col2, col3, col4 = st.columns(4)
 				with col1:
-					st.bar_chart(df_golfatti_Cremonese['GIOCATORE'].value_counts().sort_values(), use_container_width=True)
-					st.dataframe(df_golfatti_Cremonese['GIOCATORE'].value_counts().head(5), use_container_width=True)
+					tmp_df_gfsqd = df_golfatti_Cremonese.groupby('GIOCATORE').size().reset_index(name = 'GOL FATTI')
+					tmp_df_gfsqd = tmp_df_gfsqd.set_index('GIOCATORE')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gfsqd, use_container_width=True)
+					st.dataframe(df_golfatti_Cremonese['GIOCATORE'].value_counts().head(3), use_container_width=True)
 
 				with col2:
 					st.bar_chart(df_golfatti_Cremonese['TEMPO'].value_counts(), use_container_width=True)
@@ -265,28 +278,41 @@ with Cremonese:
 			with Stats:
 
 			
+				st.subheader(f'Tabella gol subiti :blue[{squadra}]')
 				st.dataframe(df_golsubiti_Cremonese.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol subiti :blue[{squadra}]')
 
 
 				col1, col2, col3, col4 = st.columns(4)
 				with col1:
-					st.dataframe(df_golsubiti_Cremonese['GIOCATORE'].value_counts().head(5), use_container_width=True)
-					st.bar_chart(df_golsubiti_Cremonese['GIOCATORE'].value_counts().sort_values(), use_container_width=True)
+
+					tmp_df_gssqd = df_golsubiti_Cremonese.groupby('SQUADRA').size().reset_index(name = 'GOL SUBITI')
+					tmp_df_gssqd = tmp_df_gssqd.set_index('SQUADRA')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gssqd, use_container_width=True)
+					st.dataframe(df_golsubiti_Cremonese['SQUADRA'].value_counts().head(3), use_container_width=True)
+					
 
 				with col2:
 
-					st.dataframe(df_golsubiti_Cremonese['TEMPO'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golsubiti_Cremonese['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Cremonese['TEMPO'].value_counts(), use_container_width=True)				
+					
 
 				with col3:
 
-					st.dataframe(df_golsubiti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golsubiti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Cremonese['POSIZIONE'].value_counts(), use_container_width=True)				
+					
 
 				with col4:
 
-					st.dataframe(df_golsubiti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
 					st.bar_chart(df_golsubiti_Cremonese['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Cremonese['TIPO'].value_counts(), use_container_width=True)				
+					
 
 			with Link:
 
@@ -299,12 +325,65 @@ with Cremonese:
 		
 		with Favore:
 
-			st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			avvCremo, difesaCremo = st.columns(2)
+
+			with avvCremo:
+				op_avvCremo = st.selectbox(
+			      	f'Seleziona avversario della {squadra}:',
+			      	("Albinoleffe","Alessandria","Brescia","Cittadella", "Como", "Feralpisalò", "Genoa", "LRVicenza", "Monza","Padova", "Parma", "Pordenone", "Reggiana", "Spal",'Tutti'), index = 14)
+
+			with difesaCremo:
+				op_difCremo = st.selectbox(
+			      	f'Seleziona tipo difesa avversario della {squadra}:',
+			      	("Uomo", "Zona", 'Mista', 'Tutti'), index = 3)
+
+			if(op_avvCremo == 'Tutti'and op_difCremo  == 'Tutti'):
+				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvCremo == 'Tutti'and op_difCremo  != 'Tutti'):
+				df_corner_Cremonese = df_corner_Cremonese.loc[df_corner_Cremonese['DIFESA'] == op_difCremo]
+				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvCremo != 'Tutti'and op_difCremo  == 'Tutti'):
+				df_corner_Cremonese = df_corner_Cremonese.loc[df_corner_Cremonese['SQUADRA'] == op_avvCremo]
+				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvCremo != 'Tutti'and op_difCremo  != 'Tutti'):
+				df_corner_Cremonese = df_corner_Cremonese.loc[df_corner_Cremonese['SQUADRA'] == op_avvCremo]
+				df_corner_Cremonese = df_corner_Cremonese.loc[df_corner_Cremonese['DIFESA'] == op_difCremo]
+				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
 
 		with Contro:
 
-			st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			avv_vsCremo, difesa_vsCremo = st.columns(2)
 
+			with avv_vsCremo:
+				op_avv_vsCremo = st.selectbox(
+			      	f'Seleziona avversario della {squadra}: ',
+			      	("Albinoleffe","Alessandria","Brescia","Cittadella", "Como", "Feralpisalò", "Genoa", "LRVicenza", "Monza","Padova", "Parma", "Pordenone", "Reggiana", "Spal",'Tutti'), index = 14)
+
+			with difesa_vsCremo:
+				op_dif_vsCremo = st.selectbox(
+			      	f'Seleziona tipo difesa avversario della {squadra} :',
+			      	("Uomo", "Zona", 'Mista', 'Tutti'), index = 3)
+
+			if(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  != 'Tutti'):
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['DIFESA'] == op_dif_vsCremo]
+				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['SQUADRA'] == op_avv_vsCremo]
+				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  != 'Tutti'):
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['SQUADRA'] == op_avv_vsCremo]
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['DIFESA'] == op_dif_vsCremo]
+				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 			
 
 with Padova:
