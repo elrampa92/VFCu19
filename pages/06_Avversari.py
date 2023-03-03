@@ -205,7 +205,11 @@ with Cremonese:
 	df_corner_Cremonese['LINK'] = df_corner_Cremonese['LINK'].apply(make_clickable)
 	df_corner_Cremonese = df_corner_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
 	df_corner_Cremonese = df_corner_Cremonese.drop(columns = ['ATTACCA'])
-
+	
+	list_corner_Cremonese = df_corner_Cremonese['SQUADRA'].tolist()
+	list_corner_Cremonese = [*set(list_corner_Cremonese)]
+	list_corner_Cremonese.sort()
+	
 	df_corner_vsCremonese = df_corner.loc[df_corner['DIFENDE'] == squadra]
 	df_corner_vsCremonese['LINK'] = df_corner_vsCremonese['LINK'].apply(make_clickable)
 	df_corner_vsCremonese = df_corner_vsCremonese.rename(columns =  {'ATTACCA' : 'SQUADRA'})
@@ -214,15 +218,12 @@ with Cremonese:
 
 	df_golfatti_Cremonese = df_gol.loc[df_gol['ATTACCA'] == squadra]
 	df_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['ATTACCA'])
-
+	df_golfatti_Cremonese['LINK'] = df_golfatti_Cremonese['LINK'].apply(make_clickable)
+	df_golfatti_Cremonese = df_golfatti_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	
 	df_golsubiti_Cremonese = df_gol.loc[df_gol['DIFENDE'] == squadra]
 	df_golsubiti_Cremonese = df_golsubiti_Cremonese.drop(columns = ['DIFENDE'])
-
-
-	df_golfatti_Cremonese['LINK'] = df_golfatti_Cremonese['LINK'].apply(make_clickable)
 	df_golsubiti_Cremonese['LINK'] = df_golsubiti_Cremonese['LINK'].apply(make_clickable)
-
-	df_golfatti_Cremonese = df_golfatti_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
 	df_golsubiti_Cremonese = df_golsubiti_Cremonese.rename(columns =  {'ATTACCA' : 'SQUADRA'})
 	
 
@@ -330,7 +331,7 @@ with Cremonese:
 			with avvCremo:
 				op_avvCremo = st.selectbox(
 			      	f'Seleziona avversario della {squadra}:',
-			      	("Albinoleffe","Alessandria","Brescia","Cittadella", "Como", "Feralpisalò", "Genoa", "LRVicenza", "Monza","Padova", "Parma", "Pordenone", "Reggiana", "Spal",'Tutti'), index = 14)
+			      	(list_corner_Cremonese,'Tutti'), index = len(list_corner_Cremonese)+1)
 
 			with difesaCremo:
 				op_difCremo = st.selectbox(
