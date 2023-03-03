@@ -22,10 +22,10 @@ df_min_ts = pd.read_excel(url_min, sheet_name='minuti', usecols = "A,C,AH:AJ") #
 
 df_status = pd.read_excel(url_min, sheet_name='stati', usecols = "A,C,AH:AO") #dataframe con stati pp
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
-   st.subheader("Top 10 Minuti giocati")
+   st.subheader("Top 10 per minuti giocati")
    tmp_df = df_min_ts.drop(columns = ['TITOLARE','SUBENTRATO'])
    tmp_df = tmp_df.sort_values(by = ['MINUTI TOTALI'], ascending=False)
    tmp_df = tmp_df.head(10)
@@ -33,10 +33,7 @@ with col1:
    #st.write(tmp_df.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 with col2:
-   st.subheader("Top 10 marcatori")
-
-with col3:
-   st.subheader("prova")
+   st.subheader("Top 5 marcatori")
 
 
 
