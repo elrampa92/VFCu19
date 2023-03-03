@@ -207,15 +207,13 @@ with Cremonese:
 				df_corner_Cremonese = df_corner_Cremonese.loc[df_corner_Cremonese['DIFESA'] == op_difCremo]
 				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-
-
 		with Contro:
 			
 			ind = len(list_corner_vsCremonese)-1
 			avv_vsCremo, difesa_vsCremo = st.columns(2)
 
 			with avv_vsCremo:
-				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_vsCremonese, index = ind
+				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_vsCremonese, index = ind)
 
 			with difesa_vsCremo:
 				op_dif_vsCremo = st.selectbox(
