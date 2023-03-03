@@ -45,56 +45,6 @@ url_gol = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DAT
 Albinoleffe, Alessandria, Brescia, Cittadella, Como, Cremonese, Feralpisalò, Genoa, LRVicenza, Monza, Padova, Parma, Pordenone, Reggiana, Spal = st.tabs(
 	["Albinoleffe","Alessandria","Brescia","Cittadella","Como","Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Padova", "Parma", "Pordenone", "Reggiana", "Spal"])
 
-with Cittadella:
-	
-	squadra = "Cittadella"
-
-	df_corner_Cittadella = df_corner.loc[df_corner['ATTACCA'] == squadra]
-	df_corner_vsCittadella = df_corner.loc[df_corner['DIFENDE'] == squadra]
-
-	df_corner_Cittadella['LINK'] = df_corner_Cittadella['LINK'].apply(make_clickable)
-	df_corner_vsCittadella['LINK'] = df_corner_vsCittadella['LINK'].apply(make_clickable)
-
-	df_golfatti_Cittadella = df_gol.loc[df_gol['ATTACCA'] == squadra]
-	df_golfatti_Cittadella = df_golfatti_Cittadella.drop(columns = ['ATTACCA'])
-	#df_golfatti_Padova = df_golfatti_Padova.reset_index()
-
-	df_golsubiti_Cittadella = df_gol.loc[df_gol['DIFENDE'] == squadra]
-	df_golsubiti_Cittadella = df_golsubiti_Cittadella.drop(columns = ['DIFENDE'])
-	#df_golsubiti_Padova = df_golsubiti_Padova.reset_index()
-
-	df_golfatti_Cittadella['LINK'] = df_golfatti_Cittadella['LINK'].apply(make_clickable)
-	df_golsubiti_Cittadella['LINK'] = df_golsubiti_Cittadella['LINK'].apply(make_clickable)
-	
-
-	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
-	
-	with Gol:
-		
-		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
-		
-		with Golfatti:
-
-			st.write(df_golfatti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-		with Golsubiti:
-
-			st.write(df_golsubiti_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-			
-	with Corner:
-		
-		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
-		
-		with Favore:
-
-			st.write(df_corner_Cittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-		with Contro:
-
-			st.write(df_corner_vsCittadella.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-
-
 with Cremonese:
 	
 	
@@ -230,7 +180,7 @@ with Cremonese:
 			with avvCremo:
 				op_avvCremo = st.selectbox(
 			      	f'Seleziona avversario della {squadra}:',
-			      	(list_corner_Cremonese,'Tutti'), index = len(list_corner_Cremonese)+1)
+			      	(list_corner_Cremonese), index = len(list_corner_Cremonese))
 			
 			with difesaCremo:
 				op_difCremo = st.selectbox(
