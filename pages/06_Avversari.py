@@ -325,14 +325,14 @@ with Cremonese:
 		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
 		
 		with Favore:
-
+			st.write(list_corner_Cremonese)
 			avvCremo, difesaCremo = st.columns(2)
 
 			with avvCremo:
 				op_avvCremo = st.selectbox(
 			      	f'Seleziona avversario della {squadra}:',
 			      	(list_corner_Cremonese,'Tutti'), index = len(list_corner_Cremonese)+1)
-
+			
 			with difesaCremo:
 				op_difCremo = st.selectbox(
 			      	f'Seleziona tipo difesa avversario della {squadra}:',
