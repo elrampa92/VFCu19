@@ -163,21 +163,19 @@ with Cremonese:
 			      	("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
 			
 				
-			if(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  == 'TUTTE'):
+			if(optgfCremonese == 'ENTRAMBI' and oppgfCremonese  == 'TUTTE' and optggfCremonese == 'Tutti' ):
 					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  != 'TUTTE'):
+			elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  == 'TUTTE' and optggfCremonese != 'Tutti' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+					
+			elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  != 'TUTTE' and optggfCremonese != 'Tutti' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
 					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+			
 
-			elif(optgfCremonese != 'ENTRAMBI'and oppgfCremonese  == 'TUTTE'):
-					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
-					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-			elif(optgfCremonese != 'Tutti'and oppgfCremonese  != 'Tutti'):
-					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
-					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
-					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
 			
