@@ -176,11 +176,11 @@ with Cremonese:
 		
 		with Favore:
 			
-			in = len(list_corner_Cremonese)
+			ind = len(list_corner_Cremonese)
 			avvCremo, difesaCremo = st.columns(2)
 
 			with avvCremo:
-				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_Cremonese, index = in)
+				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_Cremonese, index = ind)
 			
 			with difesaCremo:
 				op_difCremo = st.selectbox(
