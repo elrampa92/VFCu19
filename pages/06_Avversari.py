@@ -58,6 +58,7 @@ with Cremonese:
 	list_corner_Cremonese = df_corner_Cremonese['SQUADRA'].tolist()
 	list_corner_Cremonese = [*set(list_corner_Cremonese)]
 	list_corner_Cremonese.sort()
+	list_corner_Cremonese.append('Tutti')
 	
 	df_corner_vsCremonese = df_corner.loc[df_corner['DIFENDE'] == squadra]
 	df_corner_vsCremonese['LINK'] = df_corner_vsCremonese['LINK'].apply(make_clickable)
@@ -174,11 +175,12 @@ with Cremonese:
 		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
 		
 		with Favore:
-			st.write(list_corner_Cremonese)
+			
+			in = len(list_corner_Cremonese)
 			avvCremo, difesaCremo = st.columns(2)
 
 			with avvCremo:
-				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_Cremonese)
+				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra}:', list_corner_Cremonese, index = in)
 			
 			with difesaCremo:
 				op_difCremo = st.selectbox(
