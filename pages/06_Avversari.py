@@ -66,7 +66,7 @@ with Cremonese:
 	df_corner_vsCremonese = df_corner_vsCremonese.drop(columns = ['DIFENDE'])
 	
 	list_corner_vsCremonese = df_corner_Cremonese['SQUADRA'].tolist()
-	list_corner_vsCremonese = [*set(list_corner_Cremonese)]
+	list_corner_vsCremonese = [*set(list_corner_vsCremonese)]
 	list_corner_vsCremonese.sort()
 	list_corner_vsCremonese.append('Tutti')
 
