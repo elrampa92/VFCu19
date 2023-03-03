@@ -70,15 +70,27 @@ with Cremonese:
 	list_corner_vsCremonese.sort()
 	list_corner_vsCremonese.append('Tutti')
 
+	
 	df_golfatti_Cremonese = df_gol.loc[df_gol['ATTACCA'] == squadra]
 	df_golfatti_Cremonese = df_golfatti_Cremonese.drop(columns = ['ATTACCA'])
 	df_golfatti_Cremonese['LINK'] = df_golfatti_Cremonese['LINK'].apply(make_clickable)
 	df_golfatti_Cremonese = df_golfatti_Cremonese.rename(columns =  {'DIFENDE' : 'SQUADRA'})
 	
+	list_golfatti_Cremonese = df_golfatti_Cremonese['SQUADRA'].tolist()
+	list_golfatti_Cremonese = [*set(list_golfatti_Cremonese)]
+	list_golfatti_Cremonese.sort()
+	list_golfatti_Cremonese.append('Tutti')
+	
+	
 	df_golsubiti_Cremonese = df_gol.loc[df_gol['DIFENDE'] == squadra]
 	df_golsubiti_Cremonese = df_golsubiti_Cremonese.drop(columns = ['DIFENDE'])
 	df_golsubiti_Cremonese['LINK'] = df_golsubiti_Cremonese['LINK'].apply(make_clickable)
 	df_golsubiti_Cremonese = df_golsubiti_Cremonese.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	
+	list_golsubiti_Cremonese = df_golsubiti_Cremonese['SQUADRA'].tolist()
+	list_golsubiti_Cremonese = [*set(list_golsubiti_Cremonese)]
+	list_golsubiti_Cremonese.sort()
+	list_golsubiti_Cremonese.append('Tutti')
 	
 
 	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
@@ -124,7 +136,33 @@ with Cremonese:
 
 			with Link:
 
-				st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+				tab_golf_Cremonese, graf_golf_Cremonese = st.columns(2)
+
+			with tab_golf_Cremonese:
+				
+				optgfCremonese = st.selectbox(
+			      	f'Seleziona tempo di gioco dei gol della {squadra}:',
+			      	("1T","2T",'ENTRAMBI'), index = 2)
+				
+				oppgfCremonese = st.selectbox(
+			      	f'Seleziona la posizione dei gol della {squadra}:',
+			      	("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+				
+				if(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  == 'TUTTE'):
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  != 'TUTTE'):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optgfCremonese != 'ENTRAMBI'and oppgfCremonese  == 'TUTTE'):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optgfCremonese != 'Tutti'and oppgfCremonese  != 'Tutti'):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True
 
 		with Golsubiti:
 			
@@ -297,12 +335,7 @@ with Padova:
 				elif(optgfPadova != 'Tutti'and oppgfPadova  != 'Tutti'):
 					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['TEMPO'] == optgfPadova]
 					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['POSIZIONE'] == oppgfPadova]
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-				with graf_golf_Padova:
-					tmpgraf = df_golfatti_Padova['TEMPO'].value_counts()
-					st.bar_chart(tmpgraf)
-					#fig = px.bar(tmpgraf)
+					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True
 				
 
 
