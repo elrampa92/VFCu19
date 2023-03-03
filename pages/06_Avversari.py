@@ -162,7 +162,7 @@ with Cremonese:
 				elif(optgfCremonese != 'Tutti'and oppgfCremonese  != 'Tutti'):
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
-					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 		with Golsubiti:
 			
