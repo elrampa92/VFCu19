@@ -30,7 +30,6 @@ df_gol = df_gol.drop(columns = ['CT'])
 corner_gsheets_url = st.secrets["corner_gsheets_url"]
 rows_corner = run_query(f'SELECT * FROM "{corner_gsheets_url}"')
 df_corner = pd.DataFrame(rows_corner)
-df_corner = df_corner.drop(columns = ['CT'])
 
 def make_clickable(link):
     # target _blank to open new window
