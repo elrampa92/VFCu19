@@ -63,6 +63,11 @@ with Cremonese:
 	list_corner_Cremonese = [*set(list_corner_Cremonese)]
 	list_corner_Cremonese.sort()
 	list_corner_Cremonese.append('Tutti')
+
+	list_corner_difesa_Cremonese = df_corner_Cremonese['DIFESA'].tolist()
+	list_corner_difesa_Cremonese = [*set(list_corner_difesa_Cremonese)]
+	list_corner_difesa_Cremonese.sort()
+	list_corner_difesa_Cremonese.append('Tutti')
 	
 	df_corner_vsCremonese = df_corner.loc[df_corner['DIFENDE'] == squadra]
 	df_corner_vsCremonese['LINK'] = df_corner_vsCremonese['LINK'].apply(make_clickable)
@@ -73,6 +78,12 @@ with Cremonese:
 	list_corner_vsCremonese = [*set(list_corner_vsCremonese)]
 	list_corner_vsCremonese.sort()
 	list_corner_vsCremonese.append('Tutti')
+
+	list_corner_difesa_vsCremonese = df_corner_vsCremonese['DIFESA'].tolist()
+	list_corner_difesa_vsCremonese = [*set(list_corner_difesa_vsCremonese)]
+	list_corner_difesa_vsCremonese.sort()
+	list_corner_difesa_vsCremonese.append('Tutti')
+
 
 	
 	df_golfatti_Cremonese = df_gol.loc[df_gol['ATTACCA'] == squadra]
@@ -99,7 +110,7 @@ with Cremonese:
 	list_golsubiti_Cremonese = df_golsubiti_Cremonese['SQUADRA'].tolist()
 	list_golsubiti_Cremonese = [*set(list_golsubiti_Cremonese)]
 	list_golsubiti_Cremonese.sort()
-	list_golsubiti_Cremonese.append('Tutti')
+	list_golsubiti_Cremonese.append('Tutte')
 	
 
 	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
@@ -167,22 +178,43 @@ with Cremonese:
 			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
 			
 				
-				if(optgfCremonese == 'ENTRAMBI' and oppgfCremonese  == 'TUTTE' and optggfCremonese == 'Tutti' ):
+				if(optggfCremonese == 'Tutti' and optgfCremonese  == 'ENTRAMBI' and oppgfCremonese == 'TUTTE' ):
 						st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-				elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  == 'TUTTE' and optggfCremonese != 'Tutti' ):
+				elif(optggfCremonese != 'Tutti'and optgfCremonese  == 'ENTRAMBI' and oppgfCremonese == 'TUTTE' ):
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
 					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
-					
-				elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  != 'TUTTE' and optggfCremonese != 'Tutti' ):
-					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
-					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
-					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
-					
-				elif(optgfCremonese != 'ENTRAMBI'and oppgfCremonese  == 'TUTTE' and optggfCremonese == 'Tutti' ):
+
+				elif(optggfCremonese == 'Tutti'and optgfCremonese  != 'ENTRAMBI' and oppgfCremonese == 'TUTTE' ):
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
 					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
-			
+
+				elif(optggfCremonese == 'Tutti'and optgfCremonese  == 'ENTRAMBI' and oppgfCremonese != 'TUTTE' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfCremonese != 'Tutti'and optgfCremonese  != 'ENTRAMBI' and oppgfCremonese == 'TUTTE' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfCremonese == 'Tutti'and optgfCremonese  != 'ENTRAMBI' and oppgfCremonese != 'TUTTE' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfCremonese != 'Tutti'and optgfCremonese  == 'ENTRAMBI' and oppgfCremonese != 'TUTTE' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfCremonese != 'Tutti'and optgfCremonese  != 'ENTRAMBI' and oppgfCremonese != 'TUTTE' ):
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['POSIZIONE'] == oppgfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
+					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['TEMPO'] == optgfCremonese]
+					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
 
 
 		with Golsubiti:
@@ -230,7 +262,63 @@ with Cremonese:
 
 			with Link:
 
-				st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+				ind = len(list_golsubiti_Cremonese)-1
+				gols_Cremonese_giocatore, gols_Cremonese_tempo, gols_Cremonese_posizione = st.columns(3)
+
+				with gols_Cremonese_giocatore:
+				
+					optggsCremonese = st.selectbox(
+			      			f'Seleziona squadra che ha segnato alla {squadra}:', list_golsubiti_Cremonese, index = ind)
+			
+				
+				with gols_Cremonese_tempo:
+				
+					optgsCremonese = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol alla {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with gols_Cremonese_posizione:
+				
+					oppgsCremonese = st.selectbox(
+			      		f'Seleziona la posizione dei gol alla {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggsCremonese == 'Tutte' and optgsCremonese  == 'ENTRAMBI' and oppgsCremonese == 'TUTTE' ):
+						st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese != 'Tutte'and optgsCremonese  == 'ENTRAMBI' and oppgsCremonese == 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['SQUADRA'] == optggsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese == 'Tutte'and optgsCremonese  != 'ENTRAMBI' and oppgsCremonese == 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['TEMPO'] == optgsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese == 'Tutte'and optgsCremonese  == 'ENTRAMBI' and oppgsCremonese != 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['POSIZIONE'] == oppgsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese != 'Tutte'and optgsCremonese  != 'ENTRAMBI' and oppgsCremonese == 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['SQUADRA'] == optggsCremonese]
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['TEMPO'] == optgsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese == 'Tutte'and optgsCremonese  != 'ENTRAMBI' and oppgsCremonese != 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['POSIZIONE'] == oppgsCremonese]
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['TEMPO'] == optgsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese != 'Tutte'and optgsCremonese  == 'ENTRAMBI' and oppgsCremonese != 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['POSIZIONE'] == oppgsCremonese]
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['SQUADRA'] == optggsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsCremonese != 'Tutte'and optgsCremonese  != 'ENTRAMBI' and oppgsCremonese != 'TUTTE' ):
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['POSIZIONE'] == oppgsCremonese]
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['SQUADRA'] == optggsCremonese]
+					df_golsubiti_Cremonese = df_golsubiti_Cremonese.loc[df_golsubiti_Cremonese['TEMPO'] == optgsCremonese]
+					st.write(df_golsubiti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 			
 	with Corner:
@@ -239,16 +327,18 @@ with Cremonese:
 		
 		with Favore:
 			
-			ind = len(list_corner_Cremonese)-1
+			ind_avv = len(list_corner_Cremonese)-1
+			ind_dif = len(list_corner_difesa_Cremonese)-1
+
 			avvCremo, difesaCremo = st.columns(2)
 
 			with avvCremo:
-				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra} :', list_corner_Cremonese, index = ind)
+				op_avvCremo = st.selectbox(f'Seleziona avversario della {squadra} :', list_corner_Cremonese, index = ind_avv)
 			
 			with difesaCremo:
 				op_difCremo = st.selectbox(
 			      	f'Seleziona tipo difesa avversario della {squadra}:',
-			      	("Uomo", "Zona", 'Mista', 'Tutti'), index = 3)
+			      	list_corner_difesa_Cremonese, index = ind_dif)
 
 			if(op_avvCremo == 'Tutti'and op_difCremo  == 'Tutti'):
 				st.write(df_corner_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
@@ -268,16 +358,18 @@ with Cremonese:
 
 		with Contro:
 			
-			ind = len(list_corner_vsCremonese)-1
+			ind_avv = len(list_corner_vsCremonese)-1
+			ind_dif = len(list_corner_difesa_vsCremonese)-1
+
 			avv_vsCremo, difesa_vsCremo = st.columns(2)
 
 			with avv_vsCremo:
-				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsCremonese, index = ind)
+				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsCremonese, index = ind_avv)
 
 			with difesa_vsCremo:
 				op_dif_vsCremo = st.selectbox(
 			      	f'Seleziona tipo difesa avversario della {squadra} :',
-			      	("Uomo", "Zona", 'Mista', 'Tutti'), index = 3)
+			      	list_corner_difesa_vsCremonese, index = ind_dif)
 
 			if(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  == 'Tutti'):
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
@@ -295,121 +387,3 @@ with Cremonese:
 				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['DIFESA'] == op_dif_vsCremo]
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 			
-
-with Padova:
-
-	squadra = "Padova"
-
-	df_corner_Padova = df_corner.loc[df_corner['ATTACCA'] == squadra]
-	df_corner_Padova = df_corner_Padova.drop(columns = ['ATTACCA'])
-
-	df_corner_vsPadova = df_corner.loc[df_corner['DIFENDE'] == squadra]
-	df_corner_vsPadova = df_corner_vsPadova.drop(columns = ['DIFENDE'])
-
-	df_corner_Padova['LINK'] = df_corner_Padova['LINK'].apply(make_clickable)
-	df_corner_vsPadova['LINK'] = df_corner_vsPadova['LINK'].apply(make_clickable)
-
-	df_golfatti_Padova = df_gol.loc[df_gol['ATTACCA'] == squadra]
-	df_golfatti_Padova = df_golfatti_Padova.drop(columns = ['ATTACCA'])
-	#df_golfatti_Padova = df_golfatti_Padova.reset_index()
-
-	df_golsubiti_Padova = df_gol.loc[df_gol['DIFENDE'] == squadra]
-	df_golsubiti_Padova = df_golsubiti_Padova.drop(columns = ['DIFENDE'])
-	#df_golsubiti_Padova = df_golsubiti_Padova.reset_index()
-
-	
-	df_golfatti_Padova['LINK'] = df_golfatti_Padova['LINK'].apply(make_clickable)
-	df_golsubiti_Padova['LINK'] = df_golsubiti_Padova['LINK'].apply(make_clickable)
-
-
-	Presenze, Gol, Iniziogioco, PInattive   = st.tabs(["Presenze","Gol","Inizio gioco","Palle Inattive"])
-
-	with Presenze:
-
-		st.write("Ciao")
-
-	with Gol:
-		Fatti, Subiti = st.tabs(["Fatti", "Subiti"])
-
-		with Fatti:
-			tab_golf_Padova, graf_golf_Padova = st.columns(2)
-
-			with tab_golf_Padova:
-				optgfPadova = st.selectbox(
-			      	f'Seleziona tempo di gioco del gol del {squadra}:',
-			      	("1T","2T",'ENTRAMBI'), index = 2)
-				oppgfPadova = st.selectbox(
-			      	f'Seleziona la posizione del gol del {squadra}:',
-			      	("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
-				if(optgfPadova == 'ENTRAMBI'and oppgfPadova  == 'TUTTE'):
-					#st.dataframe(df_golfatti_Padova)
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-				elif(optgfPadova == 'ENTRAMBI'and oppgfPadova  != 'TUTTE'):
-					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['POSIZIONE'] == oppgfPadova]
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-				elif(optgfPadova != 'ENTRAMBI'and oppgfPadova  == 'TUTTE'):
-					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['TEMPO'] == optgfPadova]
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-				elif(optgfPadova != 'Tutti'and oppgfPadova  != 'Tutti'):
-					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['TEMPO'] == optgfPadova]
-					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['POSIZIONE'] == oppgfPadova]
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-				
-
-
-
-		with Subiti:
-
-			st.write(df_golsubiti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-
-
-
-	with PInattive:
-		Cornerf, Cornerc, Punizionif, Punizionic, Rigorif, Rigoric = st.tabs(["Corner a favore",
-			"Corner contro", "Punizioni a favore", "Punizioni contro", "Rigori a favore", "Rigori contro"])
-
-		with Cornerf:
-			avvPadova, difesaPadova = st.columns(2)
-
-			with avvPadova:
-				op_avvPadova = st.selectbox(
-			      	f'Seleziona avversario del {squadra}:',
-			      	("Albinoleffe","Alessandria","Brescia","Cittadella", "Como", "Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Parma", "Pordenone", "Reggiana", "Spal",'Tutti'), index = 14)
-			with difesaPadova:
-				op_difPadova = st.selectbox(
-			      	f'Seleziona tipo difesa avversario del {squadra}:',
-			      	("Uomo", "Zona", 'Mista', 'Tutti'), index = 3)
-
-			if(op_avvPadova == 'Tutti'and op_difPadova  == 'Tutti'):
-				st.write(df_corner_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-			elif(op_avvPadova == 'Tutti'and op_difPadova  != 'Tutti'):
-				df_corner_Padova = df_corner_Padova.loc[df_corner_Padova['DIFESA'] == op_difPadova]
-				st.write(df_corner_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-			elif(op_avvPadova != 'Tutti'and op_difPadova  == 'Tutti'):
-				df_corner_Padova = df_corner_Padova.loc[df_corner_Padova['DIFENDE'] == op_avvPadova]
-				st.write(df_corner_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-			elif(op_avvPadova != 'Tutti'and op_difPadova  != 'Tutti'):
-				df_corner_Padova = df_corner_Padova.loc[df_corner_Padova['DIFENDE'] == op_avvPadova]
-				df_corner_Padova = df_corner_Padova.loc[df_corner_Padova['DIFESA'] == op_difPadova]
-				st.write(df_corner_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
-			#st.dataframe(df_corner_como, use_container_width=True, height = 600)
-
-		with Cornerc:
-			op_avv_vsPadova = st.selectbox(
-			      	f'Seleziona avversario del {squadra} che batte:',
-			      	("Albinoleffe","Alessandria","Brescia","Cittadella", "Como", "Cremonese", "Feralpisalò", "Genoa", "LRVicenza", "Monza", "Parma", "Pordenone", "Reggiana", "Spal",'Tutti'), index = 14)
-		
-			if(op_avv_vsPadova == 'Tutti'):
-				st.write(df_corner_vsPadova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-			elif(op_avv_vsPadova != 'Tutti'):
-				df_corner_vsPadova = df_corner_vsPadova.loc[df_corner_vsPadova['ATTACCA'] == op_avv_vsPadova]
-				st.write(df_corner_vsPadova.to_html(escape=False, index=False), unsafe_allow_html=True)
-
