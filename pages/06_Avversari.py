@@ -144,27 +144,27 @@ with Cremonese:
 				ind = len(list_marcatori_Cremonese)-1
 				golf_Cremonese_giocatore, golf_Cremonese_tempo, golf_Cremonese_posizione = st.columns(3)
 
-			with golf_Cremonese_giocatore:
+				with golf_Cremonese_giocatore:
 				
-				optggfCremonese = st.selectbox(
-			      	f'Seleziona marcatore della {squadra}:', list_marcatori_Cremonese, index = ind)
+					optggfCremonese = st.selectbox(
+			      			f'Seleziona marcatore della {squadra}:', list_marcatori_Cremonese, index = ind)
 			
 				
-			with golf_Cremonese_tempo:
+				with golf_Cremonese_tempo:
 				
-				optgfCremonese = st.selectbox(
-			      	f'Seleziona tempo di gioco dei gol della {squadra}:',
-			      	("1T","2T",'ENTRAMBI'), index = 2)
+					optgfCremonese = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol della {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
 			
-			with golf_Cremonese_posizione:
+				with golf_Cremonese_posizione:
 				
-				oppgfCremonese = st.selectbox(
-			      	f'Seleziona la posizione dei gol della {squadra}:',
-			      	("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+					oppgfCremonese = st.selectbox(
+			      		f'Seleziona la posizione dei gol della {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
 			
 				
 				if(optgfCremonese == 'ENTRAMBI' and oppgfCremonese  == 'TUTTE' and optggfCremonese == 'Tutti' ):
-					st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+						st.write(df_golfatti_Cremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 				elif(optgfCremonese == 'ENTRAMBI'and oppgfCremonese  == 'TUTTE' and optggfCremonese != 'Tutti' ):
 					df_golfatti_Cremonese = df_golfatti_Cremonese.loc[df_golfatti_Cremonese['GIOCATORE'] == optggfCremonese]
