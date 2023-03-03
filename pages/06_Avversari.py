@@ -176,7 +176,7 @@ with Cremonese:
 		
 		with Favore:
 			
-			ind = len(list_corner_Cremonese)
+			ind = len(list_corner_Cremonese)-1
 			avvCremo, difesaCremo = st.columns(2)
 
 			with avvCremo:
