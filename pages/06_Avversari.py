@@ -21,11 +21,16 @@ def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
-sheet_url = st.secrets["gol_gsheets_url"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-df_gol = pd.DataFrame(rows)
+
+gol_gsheets_url = st.secrets["gol_gsheets_url"]
+rows_gol = run_query(f'SELECT * FROM "{gol_gsheets_url}"')
+df_gol = pd.DataFrame(rows_gol)
 df_gol = df_gol.drop(columns = ['CT'])
 
+corner_gsheets_url = st.secrets["corner_gsheets_url"]
+rows_corner = run_query(f'SELECT * FROM "{corner_gsheets_url}"')
+df_corner = pd.DataFrame(rows_corner)
+df_corner = df_corner.drop(columns = ['CT'])
 
 def make_clickable(link):
     # target _blank to open new window
@@ -37,7 +42,7 @@ def make_clickable(link):
 
 
 url_corner = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/CORNER.xlsx" # Make sure the url is the raw version of the file on GitHub
-df_corner = pd.read_excel(url_corner, usecols = "A:I")
+#df_corner = pd.read_excel(url_corner, usecols = "A:I")
 
 url_gol = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/GOL.xlsx"
 #df_gol = pd.read_excel(url_gol, usecols = "A:I")
