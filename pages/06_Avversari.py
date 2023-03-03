@@ -335,7 +335,7 @@ with Padova:
 				elif(optgfPadova != 'Tutti'and oppgfPadova  != 'Tutti'):
 					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['TEMPO'] == optgfPadova]
 					df_golfatti_Padova = df_golfatti_Padova.loc[df_golfatti_Padova['POSIZIONE'] == oppgfPadova]
-					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True
+					st.write(df_golfatti_Padova.to_html(escape=False, index=False), unsafe_allow_html=True)
 				
 
 
