@@ -83,6 +83,11 @@ with Brescia:
 	list_corner_difesa_vsBrescia = [*set(list_corner_difesa_vsBrescia)]
 	list_corner_difesa_vsBrescia.sort()
 	list_corner_difesa_vsBrescia.append('Tutti')
+	
+	list_corner_avvbatt_vsBrescia = df_corner_vsBrescia['GIOC_SULLA_PALLA'].tolist()
+	list_corner_avvbatt_vsBrescia = [*set(list_corner_avvbatt_vsBrescia)]
+	list_corner_avvbatt_vsBrescia.sort()
+	list_corner_avvbatt_vsBrescia.append('Tutti')
 
 
 	
@@ -360,6 +365,7 @@ with Brescia:
 			
 			ind_avv = len(list_corner_vsBrescia)-1
 			ind_dif = len(list_corner_difesa_vsBrescia)-1
+			ind_avvbatt = len(list_corner_avvbatt_vsBrescia)-1
 
 			avv_vsCremo, difesa_vsCremo = st.columns(2)
 
@@ -368,8 +374,8 @@ with Brescia:
 
 			with difesa_vsCremo:
 				op_dif_vsCremo = st.selectbox(
-			      	f'Seleziona tipo difesa avversario della {squadra} :',
-			      	list_corner_difesa_vsBrescia, index = ind_dif)
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
+			      	list_corner_avvbatt_vsBrescia, index = ind_avvbatt)
 
 			if(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  == 'Tutti'):
 				st.write(df_corner_vsBrescia.to_html(escape=False, index=False), unsafe_allow_html=True)
