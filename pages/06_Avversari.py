@@ -364,7 +364,6 @@ with Brescia:
 		with Contro:
 			
 			ind_avv = len(list_corner_vsBrescia)-1
-			ind_dif = len(list_corner_difesa_vsBrescia)-1
 			ind_avvbatt = len(list_corner_avvbatt_vsBrescia)-1
 
 			avv_vsCremo, difesa_vsCremo = st.columns(2)
@@ -373,24 +372,24 @@ with Brescia:
 				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsBrescia, index = ind_avv)
 
 			with difesa_vsCremo:
-				op_dif_vsCremo = st.selectbox(
+				op_avvbatt_vsCremo = st.selectbox(
 			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
 			      	list_corner_avvbatt_vsBrescia, index = ind_avvbatt)
 
-			if(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+			if(op_avv_vsCremo == 'Tutti'and op_avvbatt_vsCremo  == 'Tutti'):
 				st.write(df_corner_vsBrescia.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  != 'Tutti'):
-				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['DIFESA'] == op_dif_vsCremo]
+			elif(op_avv_vsCremo == 'Tutti'and op_avvbatt_vsCremo  != 'Tutti'):
+				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['GIOC_SULLA_PALLA'] == op_avvbatt_vsCremo]
 				st.write(df_corner_vsBrescia.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+			elif(op_avv_vsCremo != 'Tutti'and op_avvbatt_vsCremo  == 'Tutti'):
 				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['SQUADRA'] == op_avv_vsCremo]
 				st.write(df_corner_vsBrescia.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  != 'Tutti'):
+			elif(op_avv_vsCremo != 'Tutti'and op_avvbatt_vsCremo  != 'Tutti'):
 				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['SQUADRA'] == op_avv_vsCremo]
-				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['DIFESA'] == op_dif_vsCremo]
+				df_corner_vsBrescia = df_corner_vsBrescia.loc[df_corner_vsBrescia['GIOC_SULLA_PALLA'] == op_avvbatt_vsCremo]
 				st.write(df_corner_vsBrescia.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 with Cremonese:
