@@ -426,6 +426,11 @@ with Cremonese:
 	list_corner_difesa_vsCremonese = [*set(list_corner_difesa_vsCremonese)]
 	list_corner_difesa_vsCremonese.sort()
 	list_corner_difesa_vsCremonese.append('Tutti')
+	
+	list_corner_avvbatt_vsCremonese = df_corner_vsCremonese['GIOC_SULLA_PALLA'].tolist()
+	list_corner_avvbatt_vsCremonese = [*set(list_corner_avvbatt_vsCremonese)]
+	list_corner_avvbatt_vsCremonese.sort()
+	list_corner_avvbatt_vsCremonese.append('Tutti')
 
 
 	
@@ -702,31 +707,31 @@ with Cremonese:
 		with Contro:
 			
 			ind_avv = len(list_corner_vsCremonese)-1
-			ind_dif = len(list_corner_difesa_vsCremonese)-1
+			ind_avvbatt = len(list_corner_avvbatt_vsCremonese)-1
 
 			avv_vsCremo, difesa_vsCremo = st.columns(2)
 
 			with avv_vsCremo:
-				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsCremonese, index = ind_avv)
+				op_avv_vsCremo = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsBrescia, index = ind_avv)
 
 			with difesa_vsCremo:
-				op_dif_vsCremo = st.selectbox(
-			      	f'Seleziona tipo difesa avversario della {squadra} :',
-			      	list_corner_difesa_vsCremonese, index = ind_dif)
+				op_avvbatt_vsCremo = st.selectbox(
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
+			      	list_corner_avvbatt_vsCremonese, index = ind_avvbatt)
 
-			if(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+			if(op_avv_vsCremo == 'Tutti'and op_avvbatt_vsCremo  == 'Tutti'):
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo == 'Tutti'and op_dif_vsCremo  != 'Tutti'):
-				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['DIFESA'] == op_dif_vsCremo]
+			elif(op_avv_vsCremo == 'Tutti'and op_avvbatt_vsCremo  != 'Tutti'):
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['GIOC_SULLA_PALLA'] == op_avvbatt_vsCremo]
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  == 'Tutti'):
+			elif(op_avv_vsCremo != 'Tutti'and op_avvbatt_vsCremo  == 'Tutti'):
 				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['SQUADRA'] == op_avv_vsCremo]
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 
-			elif(op_avv_vsCremo != 'Tutti'and op_dif_vsCremo  != 'Tutti'):
+			elif(op_avv_vsCremo != 'Tutti'and op_avvbatt_vsCremo  != 'Tutti'):
 				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['SQUADRA'] == op_avv_vsCremo]
-				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['DIFESA'] == op_dif_vsCremo]
+				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['GIOC_SULLA_PALLA'] == op_avvbatt_vsCremo]
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
 			
