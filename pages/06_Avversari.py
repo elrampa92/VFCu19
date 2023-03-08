@@ -716,7 +716,7 @@ with Cremonese:
 
 			with difesa_vsCremo:
 				op_avvbatt_vsCremo = st.selectbox(
-			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
+			      	f'Seleziona quanti giocatori avversari presenti in battuta: ',
 			      	list_corner_avvbatt_vsCremonese, index = ind_avvbatt)
 
 			if(op_avv_vsCremo == 'Tutti'and op_avvbatt_vsCremo  == 'Tutti'):
