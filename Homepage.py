@@ -38,7 +38,7 @@ with col2:
    st.subheader("Top 5 marcatori")
    tmp_df_gf = df_gol_fatti.sort_values(by = ['GOL FATTI'], ascending=False)
    tmp_df_gf = tmp_df_gf.head(5)
-   st.dataframe(tmp_df, use_container_width=True)
+   st.dataframe(tmp_df_gf, use_container_width=True)
 
 
 
