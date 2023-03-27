@@ -115,7 +115,8 @@ list_golsubiti_Venezia.sort()
 list_golsubiti_Venezia.append('Tutte')
 
 
-Gol, Corner   = st.tabs(["Gol","Corner"])
+#Gol, Corner   = st.tabs(["Gol","Corner"])
+Gol   = st.tabs(["Gol"])
 
 with Gol:
 
@@ -323,7 +324,7 @@ with Gol:
         st.write(df_golsubiti_Venezia.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 
-with Corner:
+'''with Corner:
 
   Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
 
@@ -388,4 +389,4 @@ with Corner:
       df_corner_vsVenezia = df_corner_vsVenezia.loc[df_corner_vsVenezia['SQUADRA'] == op_avv_vsVenezia]
       df_corner_vsVenezia = df_corner_vsVenezia.loc[df_corner_vsVenezia['GIOC_SULLA_PALLA'] == op_avvbatt_vsVenezia]
       st.write(df_corner_vsVenezia.to_html(escape=False, index=False), unsafe_allow_html=True)
-
+'''
