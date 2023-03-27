@@ -116,7 +116,7 @@ list_golsubiti_Venezia.append('Tutte')
 
 
 #Gol, Corner   = st.tabs(["Gol","Corner"])
-Gol   = st.tabs(["Gol"])
+Gol = st.tabs(["Gol"])
 
 with Gol:
 
