@@ -734,4 +734,349 @@ with Cremonese:
 				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['SQUADRA'] == op_avv_vsCremo]
 				df_corner_vsCremonese = df_corner_vsCremonese.loc[df_corner_vsCremonese['GIOC_SULLA_PALLA'] == op_avvbatt_vsCremo]
 				st.write(df_corner_vsCremonese.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				
+with Parma:
+	
+	
+	squadra = "Parma"
+
+	df_corner_Parma = df_corner.loc[df_corner['ATTACCA'] == squadra]
+	df_corner_Parma['LINK'] = df_corner_Parma['LINK'].apply(make_clickable)
+	df_corner_Parma = df_corner_Parma.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	df_corner_Parma = df_corner_Parma.drop(columns = ['ATTACCA'])
+	
+	list_corner_Parma = df_corner_Parma['SQUADRA'].tolist()
+	list_corner_Parma = [*set(list_corner_Parma)]
+	list_corner_Parma.sort()
+	list_corner_Parma.append('Tutti')
+
+	list_corner_difesa_Parma = df_corner_Parma['DIFESA'].tolist()
+	list_corner_difesa_Parma = [*set(list_corner_difesa_Parma)]
+	list_corner_difesa_Parma.sort()
+	list_corner_difesa_Parma.append('Tutti')
+	
+	df_corner_vsParma = df_corner.loc[df_corner['DIFENDE'] == squadra]
+	df_corner_vsParma['LINK'] = df_corner_vsParma['LINK'].apply(make_clickable)
+	df_corner_vsParma = df_corner_vsParma.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	df_corner_vsParma = df_corner_vsParma.drop(columns = ['DIFENDE'])
+	
+	list_corner_vsParma = df_corner_vsParma['SQUADRA'].tolist()
+	list_corner_vsParma = [*set(list_corner_vsParma)]
+	list_corner_vsParma.sort()
+	list_corner_vsParma.append('Tutti')
+
+	list_corner_difesa_vsParma = df_corner_vsParma['DIFESA'].tolist()
+	list_corner_difesa_vsParma = [*set(list_corner_difesa_vsParma)]
+	list_corner_difesa_vsParma.sort()
+	list_corner_difesa_vsParma.append('Tutti')
+	
+	list_corner_avvbatt_vsParma = df_corner_vsParma['GIOC_SULLA_PALLA'].tolist()
+	list_corner_avvbatt_vsParma = [*set(list_corner_avvbatt_vsParma)]
+	list_corner_avvbatt_vsParma.sort()
+	list_corner_avvbatt_vsParma.append('Tutti')
+
+
+	
+	df_golfatti_Parma = df_gol.loc[df_gol['ATTACCA'] == squadra]
+	df_golfatti_Parma = df_golfatti_Parma.drop(columns = ['ATTACCA'])
+	df_golfatti_Parma['LINK'] = df_golfatti_Parma['LINK'].apply(make_clickable)
+	df_golfatti_Parma = df_golfatti_Parma.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	
+	list_golfatti_Parma = df_golfatti_Parma['SQUADRA'].tolist()
+	list_golfatti_Parma = [*set(list_golfatti_Parma)]
+	list_golfatti_Parma.sort()
+	list_golfatti_Parma.append('Tutti')
+	
+	list_marcatori_Parma = df_golfatti_Parma['GIOCATORE'].tolist()
+	list_marcatori_Parma = [*set(list_marcatori_Parma)]
+	list_marcatori_Parma.sort()
+	list_marcatori_Parma.append('Tutti')
+	
+	
+	df_golsubiti_Parma = df_gol.loc[df_gol['DIFENDE'] == squadra]
+	df_golsubiti_Parma = df_golsubiti_Parma.drop(columns = ['DIFENDE'])
+	df_golsubiti_Parma['LINK'] = df_golsubiti_Parma['LINK'].apply(make_clickable)
+	df_golsubiti_Parma = df_golsubiti_Parma.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	
+	list_golsubiti_Parma = df_golsubiti_Parma['SQUADRA'].tolist()
+	list_golsubiti_Parma = [*set(list_golsubiti_Parma)]
+	list_golsubiti_Parma.sort()
+	list_golsubiti_Parma.append('Tutte')
+	
+
+	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
+	
+	with Gol:
+		
+		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
+		
+		with Golfatti:
+
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+				st.subheader(f'Tabella gol fatti :blue[{squadra}]')
+				st.dataframe(df_golfatti_Parma.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol fatti :blue[{squadra}]')
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+					tmp_df_gfsqd = df_golfatti_Parma.groupby('GIOCATORE').size().reset_index(name = 'GOL FATTI')
+					tmp_df_gfsqd = tmp_df_gfsqd.set_index('GIOCATORE')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gfsqd, use_container_width=True)
+					st.dataframe(df_golfatti_Parma['GIOCATORE'].value_counts().head(3), use_container_width=True)
+
+				with col2:
+					st.bar_chart(df_golfatti_Parma['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Parma['TEMPO'].value_counts(), use_container_width=True)	
+					
+
+				with col3:
+					st.bar_chart(df_golfatti_Parma['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Parma['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+					st.bar_chart(df_golfatti_Parma['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Parma['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+				
+				ind = len(list_marcatori_Parma)-1
+				golf_Parma_giocatore, golf_Parma_tempo, golf_Parma_posizione = st.columns(3)
+
+				with golf_Parma_giocatore:
+				
+					optggfParma = st.selectbox(
+			      			f'Seleziona marcatore della {squadra}:', list_marcatori_Parma, index = ind)
 			
+				
+				with golf_Parma_tempo:
+				
+					optgfParma = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol della {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with golf_Parma_posizione:
+				
+					oppgfParma = st.selectbox(
+			      		f'Seleziona la posizione dei gol della {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggfParma == 'Tutti' and optgfParma  == 'ENTRAMBI' and oppgfParma == 'TUTTE' ):
+						st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma != 'Tutti'and optgfParma  == 'ENTRAMBI' and oppgfParma == 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['GIOCATORE'] == optggfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma == 'Tutti'and optgfParma  != 'ENTRAMBI' and oppgfParma == 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['TEMPO'] == optgfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma == 'Tutti'and optgfParma  == 'ENTRAMBI' and oppgfParma != 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['POSIZIONE'] == oppgfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma != 'Tutti'and optgfParma  != 'ENTRAMBI' and oppgfParma == 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['GIOCATORE'] == optggfParma]
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['TEMPO'] == optgfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma == 'Tutti'and optgfParma  != 'ENTRAMBI' and oppgfParma != 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['POSIZIONE'] == oppgfParma]
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['TEMPO'] == optgfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma != 'Tutti'and optgfParma  == 'ENTRAMBI' and oppgfParma != 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['POSIZIONE'] == oppgfParma]
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['GIOCATORE'] == optggfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfParma != 'Tutti'and optgfParma  != 'ENTRAMBI' and oppgfParma != 'TUTTE' ):
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['POSIZIONE'] == oppgfParma]
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['GIOCATORE'] == optggfParma]
+					df_golfatti_Parma = df_golfatti_Parma.loc[df_golfatti_Parma['TEMPO'] == optgfParma]
+					st.write(df_golfatti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
+
+
+		with Golsubiti:
+			
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+			
+				st.subheader(f'Tabella gol subiti :blue[{squadra}]')
+				st.dataframe(df_golsubiti_Parma.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol subiti :blue[{squadra}]')
+
+
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+
+					tmp_df_gssqd = df_golsubiti_Parma.groupby('SQUADRA').size().reset_index(name = 'GOL SUBITI')
+					tmp_df_gssqd = tmp_df_gssqd.set_index('SQUADRA')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gssqd, use_container_width=True)
+					st.dataframe(df_golsubiti_Parma['SQUADRA'].value_counts().head(3), use_container_width=True)
+					
+
+				with col2:
+
+					st.bar_chart(df_golsubiti_Parma['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Parma['TEMPO'].value_counts(), use_container_width=True)				
+					
+
+				with col3:
+
+					st.bar_chart(df_golsubiti_Parma['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Parma['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+
+					st.bar_chart(df_golsubiti_Parma['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Parma['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+
+				ind = len(list_golsubiti_Parma)-1
+				gols_Parma_giocatore, gols_Parma_tempo, gols_Parma_posizione = st.columns(3)
+
+				with gols_Parma_giocatore:
+				
+					optggsParma = st.selectbox(
+			      			f'Seleziona squadra che ha segnato alla {squadra}:', list_golsubiti_Parma, index = ind)
+			
+				
+				with gols_Parma_tempo:
+				
+					optgsParma = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol alla {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with gols_Parma_posizione:
+				
+					oppgsParma = st.selectbox(
+			      		f'Seleziona la posizione dei gol alla {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggsParma == 'Tutte' and optgsParma  == 'ENTRAMBI' and oppgsParma == 'TUTTE' ):
+						st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma != 'Tutte'and optgsParma  == 'ENTRAMBI' and oppgsParma == 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['SQUADRA'] == optggsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma == 'Tutte'and optgsParma  != 'ENTRAMBI' and oppgsParma == 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['TEMPO'] == optgsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma == 'Tutte'and optgsParma  == 'ENTRAMBI' and oppgsParma != 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['POSIZIONE'] == oppgsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma != 'Tutte'and optgsParma  != 'ENTRAMBI' and oppgsParma == 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['SQUADRA'] == optggsParma]
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['TEMPO'] == optgsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma == 'Tutte'and optgsParma  != 'ENTRAMBI' and oppgsParma != 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['POSIZIONE'] == oppgsParma]
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['TEMPO'] == optgsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma != 'Tutte'and optgsParma  == 'ENTRAMBI' and oppgsParma != 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['POSIZIONE'] == oppgsParma]
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['SQUADRA'] == optggsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsParma != 'Tutte'and optgsParma  != 'ENTRAMBI' and oppgsParma != 'TUTTE' ):
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['POSIZIONE'] == oppgsParma]
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['SQUADRA'] == optggsParma]
+					df_golsubiti_Parma = df_golsubiti_Parma.loc[df_golsubiti_Parma['TEMPO'] == optgsParma]
+					st.write(df_golsubiti_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			
+	with Corner:
+		
+		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
+		
+		with Favore:
+			
+			ind_avv = len(list_corner_Parma)-1
+			ind_dif = len(list_corner_difesa_Parma)-1
+
+			avvParma, difesaParma = st.columns(2)
+
+			with avvParma:
+				op_avvParma = st.selectbox(f'Seleziona avversario della {squadra} :', list_corner_Parma, index = ind_avv)
+			
+			with difesaParma:
+				op_difParma = st.selectbox(
+			      	f'Seleziona tipo difesa avversario della {squadra}:',
+			      	list_corner_difesa_Parma, index = ind_dif)
+
+			if(op_avvParma == 'Tutti'and op_difParma  == 'Tutti'):
+				st.write(df_corner_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvParma == 'Tutti'and op_difParma  != 'Tutti'):
+				df_corner_Parma = df_corner_Parma.loc[df_corner_Parma['DIFESA'] == op_difParma]
+				st.write(df_corner_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvParma != 'Tutti'and op_difParma  == 'Tutti'):
+				df_corner_Parma = df_corner_Parma.loc[df_corner_Parma['SQUADRA'] == op_avvParma]
+				st.write(df_corner_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvParma != 'Tutti'and op_difParma  != 'Tutti'):
+				df_corner_Parma = df_corner_Parma.loc[df_corner_Parma['SQUADRA'] == op_avvParma]
+				df_corner_Parma = df_corner_Parma.loc[df_corner_Parma['DIFESA'] == op_difParma]
+				st.write(df_corner_Parma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+		with Contro:
+			
+			ind_avv = len(list_corner_vsParma)-1
+			ind_avvbatt = len(list_corner_avvbatt_vsParma)-1
+
+			avv_vsParma, difesa_vsParma = st.columns(2)
+
+			with avv_vsParma:
+				op_avv_vsParma = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsParma, index = ind_avv)
+
+			with difesa_vsParma:
+				op_avvbatt_vsParma = st.selectbox(
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
+			      	list_corner_avvbatt_vsParma, index = ind_avvbatt)
+
+			if(op_avv_vsParma == 'Tutti'and op_avvbatt_vsParma  == 'Tutti'):
+				st.write(df_corner_vsParma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsParma == 'Tutti'and op_avvbatt_vsParma  != 'Tutti'):
+				df_corner_vsParma = df_corner_vsParma.loc[df_corner_vsParma['GIOC_SULLA_PALLA'] == op_avvbatt_vsParma]
+				st.write(df_corner_vsParma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsParma != 'Tutti'and op_avvbatt_vsParma  == 'Tutti'):
+				df_corner_vsParma = df_corner_vsParma.loc[df_corner_vsParma['SQUADRA'] == op_avv_vsParma]
+				st.write(df_corner_vsParma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsParma != 'Tutti'and op_avvbatt_vsParma  != 'Tutti'):
+				df_corner_vsParma = df_corner_vsParma.loc[df_corner_vsParma['SQUADRA'] == op_avv_vsParma]
+				df_corner_vsParma = df_corner_vsParma.loc[df_corner_vsParma['GIOC_SULLA_PALLA'] == op_avvbatt_vsParma]
+				st.write(df_corner_vsParma.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
