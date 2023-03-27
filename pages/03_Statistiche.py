@@ -8,6 +8,9 @@ from IPython.core.display import display, HTML
 import plotly.express as px
 from gsheetsdb import connect
 
+st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
+st.title("Statistiche stagionali")
+
 # Create a connection object.
 conn = connect()
 # Perform SQL query on the Google Sheet.
@@ -43,8 +46,6 @@ url_gol = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DAT
 #df_gol = pd.read_excel(url_gol, usecols = "A:I")
 
 
-st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
-st.title("Statistiche stagionali")
 
 
 
