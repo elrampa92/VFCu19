@@ -1060,7 +1060,7 @@ with Parma:
 
 			with difesa_vsParma:
 				op_avvbatt_vsParma = st.selectbox(
-			      	f'Seleziona quanti giocatori avversari presenti in battuta:',
+			      	f'Seleziona quanti giocatori avversari presenti in battuta: ',
 			      	list_corner_avvbatt_vsParma, index = ind_avvbatt)
 
 			if(op_avv_vsParma == 'Tutti'and op_avvbatt_vsParma  == 'Tutti'):
