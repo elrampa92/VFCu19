@@ -9,7 +9,7 @@ import plotly.express as px
 from gsheetsdb import connect
 
 st.set_page_config(page_title="VFC u19 Dashboard", layout="wide")
-st.title("Statistiche stagionali")
+st.title("Eventi stagionali")
 
 # Create a connection object.
 conn = connect()
