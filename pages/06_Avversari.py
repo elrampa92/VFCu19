@@ -1727,7 +1727,7 @@ with LRVicenza:
 
 				op_avvbatt_vsLRVicenza = st.selectbox(
 
-			      	f'Seleziona quanti giocatori avversari presenti in battuta:   ',
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:    ',
 
 			      	list_corner_avvbatt_vsLRVicenza, index = ind_avvbatt)
 
