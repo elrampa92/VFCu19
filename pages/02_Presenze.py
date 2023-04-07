@@ -16,7 +16,7 @@ st.sidebar.success(f"In questa pagina sarà possibile visualizzare i minutaggi d
 ### LEGGO DATAFRAME CON MINUTAGGI
 
 url_min = "https://raw.githubusercontent.com/elrampa92/VFCu19_Dashboard/main/DATABASE/VENEZIA.xlsx" # Make sure the url is the raw version of the file on GitHub
-df_min = pd.read_excel(url_min, sheet_name='minuti', usecols = "A,C,D:Z") #dataframe con minutaggi pp
+df_min = pd.read_excel(url_min, sheet_name='minuti', usecols = "A,C,D:AA") #dataframe con minutaggi pp
 
 df_min_ts = pd.read_excel(url_min, sheet_name='minuti', usecols = "A,C,AH:AJ") #dataframe con minuti giocati + titolare e subentrato
 
