@@ -2224,7 +2224,7 @@ with Albinoleffe:
 				with golf_Albinoleffe_giocatore:
 				
 					optggfAlbinoleffe = st.selectbox(
-			      			f'Seleziona marcatore della {squadra}:', list_marcatori_Albinoleffe, index = ind)
+			      			f'Seleziona marcatore della {squadra}:  ', list_marcatori_Albinoleffe, index = ind)
 			
 				
 				with golf_Albinoleffe_tempo:
