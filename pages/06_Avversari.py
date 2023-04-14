@@ -2230,7 +2230,7 @@ with Albinoleffe:
 				with golf_Albinoleffe_tempo:
 				
 					optgfAlbinoleffe = st.selectbox(
-			      			f'Seleziona tempo di gioco dei gol della {squadra}:',
+			      			f'Seleziona tempo di gioco dei gol della {squadra}: ',
 			      			("1T","2T",'ENTRAMBI'), index = 2)
 			
 				with golf_Albinoleffe_posizione:
