@@ -111,28 +111,29 @@ with Sanzioni:
           '12A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
           '13A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
           '14A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+  
   provadf = pd.DataFrame(data)
-  provadf["Somma"] = provadf.sum(axis=1)
+  
+  df_sanz = provadf
+  df_sanz["Somma"] = provadf.sum(axis=1)
                                        
-  st.dataframe(provadf ,use_container_width=False)
+  st.dataframe(df_sanz ,use_container_width=False)
   
   df_chart = pd.DataFrame()
   
   df_chart["Giocatore"] = provadf["Giocatore"]
   df_chart["Somma"] = provadf["Somma"]
   
-  chart_data = pd.DataFrame(
-    provadf["Somma"],
-    provadf["Giocatore"],
-  )
   
-  st.dataframe(chart_data ,use_container_width=False)
+  
+  
+  #st.dataframe(df_chart ,use_container_width=False)
   
   #st.bar_chart(df_chart)
 
   # Convert wide-form data to long-form
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
-  data = pd.melt(df_chart.reset_index(), id_vars=["Giocatore"])
+  data = pd.melt(provadf.reset_index(), id_vars=["Giocatore"])
 
   # Horizontal stacked bar chart
   chart = (
