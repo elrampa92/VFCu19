@@ -26,7 +26,7 @@ df_status = pd.read_excel(url_min, sheet_name='stati', usecols = "A,C,AH:AO") #d
 
 
 
-Minutaggi, Status= st.tabs(["Minutaggi", "Titolare / Subentrato"])
+Minutaggi, Status, Sanzioni = st.tabs(["Minutaggi", "Titolare / Subentrato", "Sanzioni])
 
 with Minutaggi:
 
@@ -94,8 +94,27 @@ with Status:
   st.bar_chart(tmp_df_stati, use_container_width=True)
 
 
+with Sanzioni:
+  data = {'Giocatore':['Remy','Noah','Amin','Da Pozzo','Kyvik','Rodrigues','Mozzo','Okoro','Ivarsson','Jonsson','Peixoto','Redan','Bah','Schiavon'],
+        '1A':[1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+          '2A':[1,1,1,1,1,1,1,1,0,0,0,0,0,0],
+          '3A':[1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+          '4A':[1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+          '5A':[1,1,1,0,0,0,0,0,0,0,0,0,0,0],
+          '6A':[1,1,0,0,0,0,0,0,0,0,0,0,0,0],
+          '7A':[1,1,0,0,0,0,0,0,0,0,0,0,0,0],
+          '8A':[1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '9A':[1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '10A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '11A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '12A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '13A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          '14A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+  provadf = pd.DataFrame(data)
+                                       
+  st.dataframe(provadf ,use_container_width=False)
 
-
+                                       
 
 
 
