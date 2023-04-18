@@ -121,6 +121,8 @@ with Sanzioni:
   df_chart["Giocatore"] = provadf["Giocatore"]
   df_chart["Somma"] = provadf["Somma"]
   
+  st.dataframe(df_chart ,use_container_width=False)
+  
   #st.bar_chart(df_chart)
 
   # Convert wide-form data to long-form
