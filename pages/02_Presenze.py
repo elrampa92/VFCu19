@@ -121,7 +121,12 @@ with Sanzioni:
   df_chart["Giocatore"] = provadf["Giocatore"]
   df_chart["Somma"] = provadf["Somma"]
   
-  st.dataframe(df_chart ,use_container_width=False)
+  chart_data = pd.DataFrame(
+    provadf["Somma"],
+    provadf["Giocatore"],
+  )
+  
+  st.dataframe(chart_data ,use_container_width=False)
   
   #st.bar_chart(df_chart)
 
