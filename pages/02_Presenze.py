@@ -112,6 +112,7 @@ with Sanzioni:
           '13A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
           '14A':[0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
   provadf = pd.DataFrame(data)
+  provadf["Somma"] = provadf.sum(axis=1)
                                        
   st.dataframe(provadf ,use_container_width=False)
   
