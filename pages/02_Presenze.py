@@ -119,15 +119,16 @@ with Sanzioni:
                                        
   st.dataframe(df_sanz ,use_container_width=False)
   
-  df_chart = pd.DataFrame()
-  
-  df_chart["Giocatore"] = provadf["Giocatore"]
-  df_chart["Somma"] = provadf["Somma"]
+  sum_row = provadf.Somma.values.tolist()
+
+  index = provadf.Giocatore.values.tolist()
+
+  df_chart = pd.DataFrame(sum_row,  index)
   
 
   # Convert wide-form data to long-form
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
-  data = pd.melt(provadf.reset_index(), id_vars=["Giocatore"])
+  data = pd.melt(df_chart.reset_index(), id_vars=["index"])
 
   st.dataframe(data ,use_container_width=False)
   
