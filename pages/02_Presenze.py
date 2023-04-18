@@ -127,11 +127,11 @@ with Sanzioni:
 
   # Convert wide-form data to long-form
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
-  #data = pd.melt(provadf.reset_index(), id_vars=["Giocatore"])
+  data = pd.melt(provadf.reset_index(), id_vars=["Giocatore"])
 
   # Horizontal stacked bar chart
   chart = (
-      alt.Chart(provadf)
+      alt.Chart(data)
       .mark_bar()
       .encode(
           x=alt.X("value", type="quantitative", title=""),
