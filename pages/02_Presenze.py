@@ -125,7 +125,7 @@ with Sanzioni:
 
   # Convert wide-form data to long-form
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
-  data = pd.melt(df_chart.reset_index(), id_vars=["index"])
+  data = pd.melt(df_chart.reset_index(), id_vars=["Giocatore"])
 
   # Horizontal stacked bar chart
   chart = (
@@ -133,7 +133,7 @@ with Sanzioni:
       .mark_bar()
       .encode(
           x=alt.X("value", type="quantitative", title=""),
-          y=alt.Y("Giocatore", type="nominal", title=""),
+          y=alt.Y("index", type="nominal", title=""),
           color=alt.Color("variable", type="nominal", title=""),
           order=alt.Order("variable", sort="descending"),
       )
