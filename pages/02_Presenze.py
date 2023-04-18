@@ -96,7 +96,7 @@ with Status:
 
 with Sanzioni:
                                        
-  data = {'Giocatore':['Remy','Noah','Amin','Da Pozzo','Kyvik','Rodrigues','Mozzo','Okoro','Ivarsson','Jonsson','Peixoto','Redan','Bah','Schiavon'],
+  data = {'Giocatore':['1 Remy','2 Noah','3 Amin','4 Da Pozzo','5 Kyvik','6 Rodrigues','7 Mozzo','8 Okoro','9 Ivarsson','10 Jonsson','11 Peixoto','12 Redan','13 Bah','14 Schiavon'],
         '1A':[1,1,1,1,1,1,1,1,1,1,1,1,1,1],
           '2A':[1,1,1,1,1,1,1,1,0,0,0,0,0,0],
           '3A':[1,1,1,1,1,0,0,0,0,0,0,0,0,0],
