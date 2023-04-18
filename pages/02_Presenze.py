@@ -116,7 +116,12 @@ with Sanzioni:
                                        
   st.dataframe(provadf ,use_container_width=False)
   
-  st.bar_chart(provadf)
+  df_chart = pd.DataFrame()
+  
+  df_chart["Giocatore"] = provadf["Giocatore"]
+  df_chart["Somma"] = provadf["Somma"]
+  
+  st.bar_chart(df_chart)
 
   # Convert wide-form data to long-form
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
