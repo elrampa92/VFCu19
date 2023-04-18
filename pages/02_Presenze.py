@@ -129,6 +129,8 @@ with Sanzioni:
   # See: https://altair-viz.github.io/user_guide/data.html#long-form-vs-wide-form-data
   data = pd.melt(provadf.reset_index(), id_vars=["Giocatore"])
 
+  st.dataframe(data ,use_container_width=False)
+  
   # Horizontal stacked bar chart
   chart = (
       alt.Chart(data)
