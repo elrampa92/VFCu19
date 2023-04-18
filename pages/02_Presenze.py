@@ -133,7 +133,7 @@ with Sanzioni:
       .mark_bar()
       .encode(
           x=alt.X("value", type="quantitative", title=""),
-          y=alt.Y("index", type="nominal", title=""),
+          y=alt.Y("Giocatore", type="nominal", title=""),
           color=alt.Color("variable", type="nominal", title=""),
           order=alt.Order("variable", sort="descending"),
       )
