@@ -2429,7 +2429,7 @@ with Reggiana:
 
 			with difesa_vsReggiana:
 				op_avvbatt_vsReggiana = st.selectbox(
-			      	f'Seleziona quanti giocatori avversari presenti in battuta:      ',
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:          ',
 			      	list_corner_avvbatt_vsReggiana, index = ind_avvbatt)
 
 			if(op_avv_vsReggiana == 'Tutti'and op_avvbatt_vsReggiana  == 'Tutti'):
