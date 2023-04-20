@@ -2105,3 +2105,345 @@ with Albinoleffe:
 				df_corner_vsAlbinoleffe = df_corner_vsAlbinoleffe.loc[df_corner_vsAlbinoleffe['SQUADRA'] == op_avv_vsAlbinoleffe]
 				df_corner_vsAlbinoleffe = df_corner_vsAlbinoleffe.loc[df_corner_vsAlbinoleffe['GIOC_SULLA_PALLA'] == op_avvbatt_vsAlbinoleffe]
 				st.write(df_corner_vsAlbinoleffe.to_html(escape=False, index=False), unsafe_allow_html=True)
+with Reggiana:
+	
+	
+	squadra = "Reggiana"
+
+	df_corner_Reggiana = df_corner.loc[df_corner['ATTACCA'] == squadra]
+	df_corner_Reggiana['LINK'] = df_corner_Reggiana['LINK'].apply(make_clickable)
+	df_corner_Reggiana = df_corner_Reggiana.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	df_corner_Reggiana = df_corner_Reggiana.drop(columns = ['ATTACCA'])
+	
+	list_corner_Reggiana = df_corner_Reggiana['SQUADRA'].tolist()
+	list_corner_Reggiana = [*set(list_corner_Reggiana)]
+	list_corner_Reggiana.sort()
+	list_corner_Reggiana.append('Tutti')
+
+	list_corner_difesa_Reggiana = df_corner_Reggiana['DIFESA'].tolist()
+	list_corner_difesa_Reggiana = [*set(list_corner_difesa_Reggiana)]
+	list_corner_difesa_Reggiana.sort()
+	list_corner_difesa_Reggiana.append('Tutti')
+	
+	df_corner_vsReggiana = df_corner.loc[df_corner['DIFENDE'] == squadra]
+	df_corner_vsReggiana['LINK'] = df_corner_vsReggiana['LINK'].apply(make_clickable)
+	df_corner_vsReggiana = df_corner_vsReggiana.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	df_corner_vsReggiana = df_corner_vsReggiana.drop(columns = ['DIFENDE'])
+	
+	list_corner_vsReggiana = df_corner_vsReggiana['SQUADRA'].tolist()
+	list_corner_vsReggiana = [*set(list_corner_vsReggiana)]
+	list_corner_vsReggiana.sort()
+	list_corner_vsReggiana.append('Tutti')
+
+	list_corner_difesa_vsReggiana = df_corner_vsReggiana['DIFESA'].tolist()
+	list_corner_difesa_vsReggiana = [*set(list_corner_difesa_vsReggiana)]
+	list_corner_difesa_vsReggiana.sort()
+	list_corner_difesa_vsReggiana.append('Tutti')
+	
+	list_corner_avvbatt_vsReggiana = df_corner_vsReggiana['GIOC_SULLA_PALLA'].tolist()
+	list_corner_avvbatt_vsReggiana = [*set(list_corner_avvbatt_vsReggiana)]
+	list_corner_avvbatt_vsReggiana.sort()
+	list_corner_avvbatt_vsReggiana.append('Tutti')
+
+
+	
+	df_golfatti_Reggiana = df_gol.loc[df_gol['ATTACCA'] == squadra]
+	df_golfatti_Reggiana = df_golfatti_Reggiana.drop(columns = ['ATTACCA'])
+	df_golfatti_Reggiana['LINK'] = df_golfatti_Reggiana['LINK'].apply(make_clickable)
+	df_golfatti_Reggiana = df_golfatti_Reggiana.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	
+	list_golfatti_Reggiana = df_golfatti_Reggiana['SQUADRA'].tolist()
+	list_golfatti_Reggiana = [*set(list_golfatti_Reggiana)]
+	list_golfatti_Reggiana.sort()
+	list_golfatti_Reggiana.append('Tutti')
+	
+	list_marcatori_Reggiana = df_golfatti_Reggiana['GIOCATORE'].tolist()
+	list_marcatori_Reggiana = [*set(list_marcatori_Reggiana)]
+	list_marcatori_Reggiana.sort()
+	list_marcatori_Reggiana.append('Tutti')
+	
+	
+	df_golsubiti_Reggiana = df_gol.loc[df_gol['DIFENDE'] == squadra]
+	df_golsubiti_Reggiana = df_golsubiti_Reggiana.drop(columns = ['DIFENDE'])
+	df_golsubiti_Reggiana['LINK'] = df_golsubiti_Reggiana['LINK'].apply(make_clickable)
+	df_golsubiti_Reggiana = df_golsubiti_Reggiana.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	
+	list_golsubiti_Reggiana = df_golsubiti_Reggiana['SQUADRA'].tolist()
+	list_golsubiti_Reggiana = [*set(list_golsubiti_Reggiana)]
+	list_golsubiti_Reggiana.sort()
+	list_golsubiti_Reggiana.append('Tutte')
+	
+
+	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
+	
+	with Gol:
+		
+		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
+		
+		with Golfatti:
+
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+				st.subheader(f'Tabella gol fatti :blue[{squadra}]')
+				st.dataframe(df_golfatti_Reggiana.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol fatti :blue[{squadra}]')
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+					tmp_df_gfsqd = df_golfatti_Reggiana.groupby('GIOCATORE').size().reset_index(name = 'GOL FATTI')
+					tmp_df_gfsqd = tmp_df_gfsqd.set_index('GIOCATORE')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gfsqd, use_container_width=True)
+					st.dataframe(df_golfatti_Reggiana['GIOCATORE'].value_counts().head(3), use_container_width=True)
+
+				with col2:
+					st.bar_chart(df_golfatti_Reggiana['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Reggiana['TEMPO'].value_counts(), use_container_width=True)	
+					
+
+				with col3:
+					st.bar_chart(df_golfatti_Reggiana['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Reggiana['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+					st.bar_chart(df_golfatti_Reggiana['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Reggiana['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+				
+				ind = len(list_marcatori_Reggiana)-1
+				golf_Reggiana_giocatore, golf_Reggiana_tempo, golf_Reggiana_posizione = st.columns(3)
+
+				with golf_Reggiana_giocatore:
+				
+					optggfReggiana = st.selectbox(
+			      			f'Seleziona marcatore della {squadra}:  ', list_marcatori_Reggiana, index = ind)
+			
+				
+				with golf_Reggiana_tempo:
+				
+					optgfReggiana = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol della {squadra}: ',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with golf_Reggiana_posizione:
+				
+					oppgfReggiana = st.selectbox(
+			      		f'Seleziona la posizione dei gol della {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggfReggiana == 'Tutti' and optgfReggiana  == 'ENTRAMBI' and oppgfReggiana == 'TUTTE' ):
+						st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana != 'Tutti'and optgfReggiana  == 'ENTRAMBI' and oppgfReggiana == 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['GIOCATORE'] == optggfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana == 'Tutti'and optgfReggiana  != 'ENTRAMBI' and oppgfReggiana == 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['TEMPO'] == optgfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana == 'Tutti'and optgfReggiana  == 'ENTRAMBI' and oppgfReggiana != 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['POSIZIONE'] == oppgfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana != 'Tutti'and optgfReggiana  != 'ENTRAMBI' and oppgfReggiana == 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['GIOCATORE'] == optggfReggiana]
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['TEMPO'] == optgfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana == 'Tutti'and optgfReggiana  != 'ENTRAMBI' and oppgfReggiana != 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['POSIZIONE'] == oppgfReggiana]
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['TEMPO'] == optgfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana != 'Tutti'and optgfReggiana  == 'ENTRAMBI' and oppgfReggiana != 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['POSIZIONE'] == oppgfReggiana]
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['GIOCATORE'] == optggfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfReggiana != 'Tutti'and optgfReggiana  != 'ENTRAMBI' and oppgfReggiana != 'TUTTE' ):
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['POSIZIONE'] == oppgfReggiana]
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['GIOCATORE'] == optggfReggiana]
+					df_golfatti_Reggiana = df_golfatti_Reggiana.loc[df_golfatti_Reggiana['TEMPO'] == optgfReggiana]
+					st.write(df_golfatti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
+
+
+		with Golsubiti:
+			
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+			
+				st.subheader(f'Tabella gol subiti :blue[{squadra}]')
+				st.dataframe(df_golsubiti_Reggiana.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol subiti :blue[{squadra}]')
+
+
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+
+					tmp_df_gssqd = df_golsubiti_Reggiana.groupby('SQUADRA').size().reset_index(name = 'GOL SUBITI')
+					tmp_df_gssqd = tmp_df_gssqd.set_index('SQUADRA')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gssqd, use_container_width=True)
+					st.dataframe(df_golsubiti_Reggiana['SQUADRA'].value_counts().head(3), use_container_width=True)
+					
+
+				with col2:
+
+					st.bar_chart(df_golsubiti_Reggiana['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Reggiana['TEMPO'].value_counts(), use_container_width=True)				
+					
+
+				with col3:
+
+					st.bar_chart(df_golsubiti_Reggiana['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Reggiana['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+
+					st.bar_chart(df_golsubiti_Reggiana['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Reggiana['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+
+				ind = len(list_golsubiti_Reggiana)-1
+				gols_Reggiana_giocatore, gols_Reggiana_tempo, gols_Reggiana_posizione = st.columns(3)
+
+				with gols_Reggiana_giocatore:
+				
+					optggsReggiana = st.selectbox(
+			      			f'Seleziona squadra che ha segnato alla {squadra}:', list_golsubiti_Reggiana, index = ind)
+			
+				
+				with gols_Reggiana_tempo:
+				
+					optgsReggiana = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol alla {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with gols_Reggiana_posizione:
+				
+					oppgsReggiana = st.selectbox(
+			      		f'Seleziona la posizione dei gol alla {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggsReggiana == 'Tutte' and optgsReggiana  == 'ENTRAMBI' and oppgsReggiana == 'TUTTE' ):
+						st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana != 'Tutte'and optgsReggiana  == 'ENTRAMBI' and oppgsReggiana == 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['SQUADRA'] == optggsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana == 'Tutte'and optgsReggiana  != 'ENTRAMBI' and oppgsReggiana == 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['TEMPO'] == optgsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana == 'Tutte'and optgsReggiana  == 'ENTRAMBI' and oppgsReggiana != 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['POSIZIONE'] == oppgsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana != 'Tutte'and optgsReggiana  != 'ENTRAMBI' and oppgsReggiana == 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['SQUADRA'] == optggsReggiana]
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['TEMPO'] == optgsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana == 'Tutte'and optgsReggiana  != 'ENTRAMBI' and oppgsReggiana != 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['POSIZIONE'] == oppgsReggiana]
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['TEMPO'] == optgsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana != 'Tutte'and optgsReggiana  == 'ENTRAMBI' and oppgsReggiana != 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['POSIZIONE'] == oppgsReggiana]
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['SQUADRA'] == optggsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsReggiana != 'Tutte'and optgsReggiana  != 'ENTRAMBI' and oppgsReggiana != 'TUTTE' ):
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['POSIZIONE'] == oppgsReggiana]
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['SQUADRA'] == optggsReggiana]
+					df_golsubiti_Reggiana = df_golsubiti_Reggiana.loc[df_golsubiti_Reggiana['TEMPO'] == optgsReggiana]
+					st.write(df_golsubiti_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			
+	with Corner:
+		
+		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
+		
+		with Favore:
+			
+			ind_avv = len(list_corner_Reggiana)-1
+			ind_dif = len(list_corner_difesa_Reggiana)-1
+
+			avvReggiana, difesaReggiana = st.columns(2)
+
+			with avvReggiana:
+				op_avvReggiana = st.selectbox(f'Seleziona avversario della {squadra} :', list_corner_Reggiana, index = ind_avv)
+			
+			with difesaReggiana:
+				op_difReggiana = st.selectbox(
+			      	f'Seleziona tipo difesa avversario della {squadra}:',
+			      	list_corner_difesa_Reggiana, index = ind_dif)
+
+			if(op_avvReggiana == 'Tutti'and op_difReggiana  == 'Tutti'):
+				st.write(df_corner_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvReggiana == 'Tutti'and op_difReggiana  != 'Tutti'):
+				df_corner_Reggiana = df_corner_Reggiana.loc[df_corner_Reggiana['DIFESA'] == op_difReggiana]
+				st.write(df_corner_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvReggiana != 'Tutti'and op_difReggiana  == 'Tutti'):
+				df_corner_Reggiana = df_corner_Reggiana.loc[df_corner_Reggiana['SQUADRA'] == op_avvReggiana]
+				st.write(df_corner_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvReggiana != 'Tutti'and op_difReggiana  != 'Tutti'):
+				df_corner_Reggiana = df_corner_Reggiana.loc[df_corner_Reggiana['SQUADRA'] == op_avvReggiana]
+				df_corner_Reggiana = df_corner_Reggiana.loc[df_corner_Reggiana['DIFESA'] == op_difReggiana]
+				st.write(df_corner_Reggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+		with Contro:
+			
+			ind_avv = len(list_corner_vsReggiana)-1
+			ind_avvbatt = len(list_corner_avvbatt_vsReggiana)-1
+
+			avv_vsReggiana, difesa_vsReggiana = st.columns(2)
+
+			with avv_vsReggiana:
+				op_avv_vsReggiana = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsReggiana, index = ind_avv)
+
+			with difesa_vsReggiana:
+				op_avvbatt_vsReggiana = st.selectbox(
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:      ',
+			      	list_corner_avvbatt_vsReggiana, index = ind_avvbatt)
+
+			if(op_avv_vsReggiana == 'Tutti'and op_avvbatt_vsReggiana  == 'Tutti'):
+				st.write(df_corner_vsReggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsReggiana == 'Tutti'and op_avvbatt_vsReggiana  != 'Tutti'):
+				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['GIOC_SULLA_PALLA'] == op_avvbatt_vsReggiana]
+				st.write(df_corner_vsReggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsReggiana != 'Tutti'and op_avvbatt_vsReggiana  == 'Tutti'):
+				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['SQUADRA'] == op_avv_vsReggiana]
+				st.write(df_corner_vsReggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsReggiana != 'Tutti'and op_avvbatt_vsReggiana  != 'Tutti'):
+				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['SQUADRA'] == op_avv_vsReggiana]
+				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['GIOC_SULLA_PALLA'] == op_avvbatt_vsReggiana]
+				st.write(df_corner_vsReggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
