@@ -13,12 +13,13 @@ st.header("Campionato Primavera 2 A")
 
 Settimanali, Mensili, Totali = st.tabs(["Settimanali", "Mensili", "Totali"])
 
-  with Settimanali:
+with Settimanali:
   
+  "prova"  
   
+with Mensili:
   
-  with Mensili:
+  "prova"    
   
-  
-  
-  with Totali:
+with Totali:
+  "prova"  
