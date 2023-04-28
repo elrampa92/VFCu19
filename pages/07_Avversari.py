@@ -2447,3 +2447,348 @@ with Reggiana:
 				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['SQUADRA'] == op_avv_vsReggiana]
 				df_corner_vsReggiana = df_corner_vsReggiana.loc[df_corner_vsReggiana['GIOC_SULLA_PALLA'] == op_avvbatt_vsReggiana]
 				st.write(df_corner_vsReggiana.to_html(escape=False, index=False), unsafe_allow_html=True)
+				
+
+with Spal:
+	
+	
+	squadra = "Spal"
+
+	df_corner_Spal = df_corner.loc[df_corner['ATTACCA'] == squadra]
+	df_corner_Spal['LINK'] = df_corner_Spal['LINK'].apply(make_clickable)
+	df_corner_Spal = df_corner_Spal.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	df_corner_Spal = df_corner_Spal.drop(columns = ['ATTACCA'])
+	
+	list_corner_Spal = df_corner_Spal['SQUADRA'].tolist()
+	list_corner_Spal = [*set(list_corner_Spal)]
+	list_corner_Spal.sort()
+	list_corner_Spal.append('Tutti')
+
+	list_corner_difesa_Spal = df_corner_Spal['DIFESA'].tolist()
+	list_corner_difesa_Spal = [*set(list_corner_difesa_Spal)]
+	list_corner_difesa_Spal.sort()
+	list_corner_difesa_Spal.append('Tutti')
+	
+	df_corner_vsSpal = df_corner.loc[df_corner['DIFENDE'] == squadra]
+	df_corner_vsSpal['LINK'] = df_corner_vsSpal['LINK'].apply(make_clickable)
+	df_corner_vsSpal = df_corner_vsSpal.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	df_corner_vsSpal = df_corner_vsSpal.drop(columns = ['DIFENDE'])
+	
+	list_corner_vsSpal = df_corner_vsSpal['SQUADRA'].tolist()
+	list_corner_vsSpal = [*set(list_corner_vsSpal)]
+	list_corner_vsSpal.sort()
+	list_corner_vsSpal.append('Tutti')
+
+	list_corner_difesa_vsSpal = df_corner_vsSpal['DIFESA'].tolist()
+	list_corner_difesa_vsSpal = [*set(list_corner_difesa_vsSpal)]
+	list_corner_difesa_vsSpal.sort()
+	list_corner_difesa_vsSpal.append('Tutti')
+	
+	list_corner_avvbatt_vsSpal = df_corner_vsSpal['GIOC_SULLA_PALLA'].tolist()
+	list_corner_avvbatt_vsSpal = [*set(list_corner_avvbatt_vsSpal)]
+	list_corner_avvbatt_vsSpal.sort()
+	list_corner_avvbatt_vsSpal.append('Tutti')
+
+
+	
+	df_golfatti_Spal = df_gol.loc[df_gol['ATTACCA'] == squadra]
+	df_golfatti_Spal = df_golfatti_Spal.drop(columns = ['ATTACCA'])
+	df_golfatti_Spal['LINK'] = df_golfatti_Spal['LINK'].apply(make_clickable)
+	df_golfatti_Spal = df_golfatti_Spal.rename(columns =  {'DIFENDE' : 'SQUADRA'})
+	
+	list_golfatti_Spal = df_golfatti_Spal['SQUADRA'].tolist()
+	list_golfatti_Spal = [*set(list_golfatti_Spal)]
+	list_golfatti_Spal.sort()
+	list_golfatti_Spal.append('Tutti')
+	
+	list_marcatori_Spal = df_golfatti_Spal['GIOCATORE'].tolist()
+	list_marcatori_Spal = [*set(list_marcatori_Spal)]
+	list_marcatori_Spal.sort()
+	list_marcatori_Spal.append('Tutti')
+	
+	
+	df_golsubiti_Spal = df_gol.loc[df_gol['DIFENDE'] == squadra]
+	df_golsubiti_Spal = df_golsubiti_Spal.drop(columns = ['DIFENDE'])
+	df_golsubiti_Spal['LINK'] = df_golsubiti_Spal['LINK'].apply(make_clickable)
+	df_golsubiti_Spal = df_golsubiti_Spal.rename(columns =  {'ATTACCA' : 'SQUADRA'})
+	
+	list_golsubiti_Spal = df_golsubiti_Spal['SQUADRA'].tolist()
+	list_golsubiti_Spal = [*set(list_golsubiti_Spal)]
+	list_golsubiti_Spal.sort()
+	list_golsubiti_Spal.append('Tutte')
+	
+
+	Gol, Corner, Punizioni   = st.tabs(["Gol","Corner","Punizioni"])
+	
+	with Gol:
+		
+		Golfatti, Golsubiti = st.tabs(["Gol fatti","Gol subiti"])
+		
+		with Golfatti:
+
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+				st.subheader(f'Tabella gol fatti :blue[{squadra}]')
+				st.dataframe(df_golfatti_Spal.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol fatti :blue[{squadra}]')
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+					tmp_df_gfsqd = df_golfatti_Spal.groupby('GIOCATORE').size().reset_index(name = 'GOL FATTI')
+					tmp_df_gfsqd = tmp_df_gfsqd.set_index('GIOCATORE')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gfsqd, use_container_width=True)
+					st.dataframe(df_golfatti_Spal['GIOCATORE'].value_counts().head(3), use_container_width=True)
+
+				with col2:
+					st.bar_chart(df_golfatti_Spal['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Spal['TEMPO'].value_counts(), use_container_width=True)	
+					
+
+				with col3:
+					st.bar_chart(df_golfatti_Spal['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Spal['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+					st.bar_chart(df_golfatti_Spal['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golfatti_Spal['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+				
+				ind = len(list_marcatori_Spal)-1
+				golf_Spal_giocatore, golf_Spal_tempo, golf_Spal_posizione = st.columns(3)
+
+				with golf_Spal_giocatore:
+				
+					optggfSpal = st.selectbox(
+			      			f'Seleziona marcatore della {squadra}:  ', list_marcatori_Spal, index = ind)
+			
+				
+				with golf_Spal_tempo:
+				
+					optgfSpal = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol della {squadra}: ',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with golf_Spal_posizione:
+				
+					oppgfSpal = st.selectbox(
+			      		f'Seleziona la posizione dei gol della {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggfSpal == 'Tutti' and optgfSpal  == 'ENTRAMBI' and oppgfSpal == 'TUTTE' ):
+						st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal != 'Tutti'and optgfSpal  == 'ENTRAMBI' and oppgfSpal == 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['GIOCATORE'] == optggfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal == 'Tutti'and optgfSpal  != 'ENTRAMBI' and oppgfSpal == 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['TEMPO'] == optgfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal == 'Tutti'and optgfSpal  == 'ENTRAMBI' and oppgfSpal != 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['POSIZIONE'] == oppgfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal != 'Tutti'and optgfSpal  != 'ENTRAMBI' and oppgfSpal == 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['GIOCATORE'] == optggfSpal]
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['TEMPO'] == optgfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal == 'Tutti'and optgfSpal  != 'ENTRAMBI' and oppgfSpal != 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['POSIZIONE'] == oppgfSpal]
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['TEMPO'] == optgfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal != 'Tutti'and optgfSpal  == 'ENTRAMBI' and oppgfSpal != 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['POSIZIONE'] == oppgfSpal]
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['GIOCATORE'] == optggfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggfSpal != 'Tutti'and optgfSpal  != 'ENTRAMBI' and oppgfSpal != 'TUTTE' ):
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['POSIZIONE'] == oppgfSpal]
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['GIOCATORE'] == optggfSpal]
+					df_golfatti_Spal = df_golfatti_Spal.loc[df_golfatti_Spal['TEMPO'] == optgfSpal]
+					st.write(df_golfatti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
+
+
+		with Golsubiti:
+			
+			Stats, Link = st.tabs(["Statistiche","Link"])
+
+			with Stats:
+
+			
+				st.subheader(f'Tabella gol subiti :blue[{squadra}]')
+				st.dataframe(df_golsubiti_Spal.drop(columns = ['LINK']), use_container_width=True)
+
+				st.subheader(f'Statistiche sui gol subiti :blue[{squadra}]')
+
+
+				col1, col2, col3, col4 = st.columns(4)
+				with col1:
+
+					tmp_df_gssqd = df_golsubiti_Spal.groupby('SQUADRA').size().reset_index(name = 'GOL SUBITI')
+					tmp_df_gssqd = tmp_df_gssqd.set_index('SQUADRA')
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'' : 'GIOCATORE'})
+					#tmp_df_gssqd = tmp_df_gssqd.rename(columns =  {'SQUADRA' : 'GOL SUBITI'})
+
+					st.bar_chart(tmp_df_gssqd, use_container_width=True)
+					st.dataframe(df_golsubiti_Spal['SQUADRA'].value_counts().head(3), use_container_width=True)
+					
+
+				with col2:
+
+					st.bar_chart(df_golsubiti_Spal['TEMPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Spal['TEMPO'].value_counts(), use_container_width=True)				
+					
+
+				with col3:
+
+					st.bar_chart(df_golsubiti_Spal['POSIZIONE'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Spal['POSIZIONE'].value_counts(), use_container_width=True)				
+					
+
+				with col4:
+
+					st.bar_chart(df_golsubiti_Spal['TIPO'].value_counts(), use_container_width=True)
+					st.dataframe(df_golsubiti_Spal['TIPO'].value_counts(), use_container_width=True)				
+					
+
+			with Link:
+
+				ind = len(list_golsubiti_Spal)-1
+				gols_Spal_giocatore, gols_Spal_tempo, gols_Spal_posizione = st.columns(3)
+
+				with gols_Spal_giocatore:
+				
+					optggsSpal = st.selectbox(
+			      			f'Seleziona squadra che ha segnato alla {squadra}:', list_golsubiti_Spal, index = ind)
+			
+				
+				with gols_Spal_tempo:
+				
+					optgsSpal = st.selectbox(
+			      			f'Seleziona tempo di gioco dei gol alla {squadra}:',
+			      			("1T","2T",'ENTRAMBI'), index = 2)
+			
+				with gols_Spal_posizione:
+				
+					oppgsSpal = st.selectbox(
+			      		f'Seleziona la posizione dei gol alla {squadra}:',
+			      		("FUORI AREA", "AREA", 'AREA PICCOLA', 'TUTTE'), index = 3)
+			
+				
+				if(optggsSpal == 'Tutte' and optgsSpal  == 'ENTRAMBI' and oppgsSpal == 'TUTTE' ):
+						st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal != 'Tutte'and optgsSpal  == 'ENTRAMBI' and oppgsSpal == 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['SQUADRA'] == optggsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal == 'Tutte'and optgsSpal  != 'ENTRAMBI' and oppgsSpal == 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['TEMPO'] == optgsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal == 'Tutte'and optgsSpal  == 'ENTRAMBI' and oppgsSpal != 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['POSIZIONE'] == oppgsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal != 'Tutte'and optgsSpal  != 'ENTRAMBI' and oppgsSpal == 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['SQUADRA'] == optggsSpal]
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['TEMPO'] == optgsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal == 'Tutte'and optgsSpal  != 'ENTRAMBI' and oppgsSpal != 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['POSIZIONE'] == oppgsSpal]
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['TEMPO'] == optgsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal != 'Tutte'and optgsSpal  == 'ENTRAMBI' and oppgsSpal != 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['POSIZIONE'] == oppgsSpal]
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['SQUADRA'] == optggsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+				elif(optggsSpal != 'Tutte'and optgsSpal  != 'ENTRAMBI' and oppgsSpal != 'TUTTE' ):
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['POSIZIONE'] == oppgsSpal]
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['SQUADRA'] == optggsSpal]
+					df_golsubiti_Spal = df_golsubiti_Spal.loc[df_golsubiti_Spal['TEMPO'] == optgsSpal]
+					st.write(df_golsubiti_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			
+	with Corner:
+		
+		Favore, Contro = st.tabs(["Corner a favore","Corner contro"])
+		
+		with Favore:
+			
+			ind_avv = len(list_corner_Spal)-1
+			ind_dif = len(list_corner_difesa_Spal)-1
+
+			avvSpal, difesaSpal = st.columns(2)
+
+			with avvSpal:
+				op_avvSpal = st.selectbox(f'Seleziona avversario della {squadra} :', list_corner_Spal, index = ind_avv)
+			
+			with difesaSpal:
+				op_difSpal = st.selectbox(
+			      	f'Seleziona tipo difesa avversario della {squadra}:',
+			      	list_corner_difesa_Spal, index = ind_dif)
+
+			if(op_avvSpal == 'Tutti'and op_difSpal  == 'Tutti'):
+				st.write(df_corner_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvSpal == 'Tutti'and op_difSpal  != 'Tutti'):
+				df_corner_Spal = df_corner_Spal.loc[df_corner_Spal['DIFESA'] == op_difSpal]
+				st.write(df_corner_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvSpal != 'Tutti'and op_difSpal  == 'Tutti'):
+				df_corner_Spal = df_corner_Spal.loc[df_corner_Spal['SQUADRA'] == op_avvSpal]
+				st.write(df_corner_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avvSpal != 'Tutti'and op_difSpal  != 'Tutti'):
+				df_corner_Spal = df_corner_Spal.loc[df_corner_Spal['SQUADRA'] == op_avvSpal]
+				df_corner_Spal = df_corner_Spal.loc[df_corner_Spal['DIFESA'] == op_difSpal]
+				st.write(df_corner_Spal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+		with Contro:
+			
+			ind_avv = len(list_corner_vsSpal)-1
+			ind_avvbatt = len(list_corner_avvbatt_vsSpal)-1
+
+			avv_vsSpal, difesa_vsSpal = st.columns(2)
+
+			with avv_vsSpal:
+				op_avv_vsSpal = st.selectbox(f'Seleziona avversario della {squadra} che batte:', list_corner_vsSpal, index = ind_avv)
+
+			with difesa_vsSpal:
+				op_avvbatt_vsSpal = st.selectbox(
+			      	f'Seleziona quanti giocatori avversari presenti in battuta:               ',
+			      	list_corner_avvbatt_vsSpal, index = ind_avvbatt)
+
+			if(op_avv_vsSpal == 'Tutti'and op_avvbatt_vsSpal  == 'Tutti'):
+				st.write(df_corner_vsSpal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsSpal == 'Tutti'and op_avvbatt_vsSpal  != 'Tutti'):
+				df_corner_vsSpal = df_corner_vsSpal.loc[df_corner_vsSpal['GIOC_SULLA_PALLA'] == op_avvbatt_vsSpal]
+				st.write(df_corner_vsSpal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsSpal != 'Tutti'and op_avvbatt_vsSpal  == 'Tutti'):
+				df_corner_vsSpal = df_corner_vsSpal.loc[df_corner_vsSpal['SQUADRA'] == op_avv_vsSpal]
+				st.write(df_corner_vsSpal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+			elif(op_avv_vsSpal != 'Tutti'and op_avvbatt_vsSpal  != 'Tutti'):
+				df_corner_vsSpal = df_corner_vsSpal.loc[df_corner_vsSpal['SQUADRA'] == op_avv_vsSpal]
+				df_corner_vsSpal = df_corner_vsSpal.loc[df_corner_vsSpal['GIOC_SULLA_PALLA'] == op_avvbatt_vsSpal]
+				st.write(df_corner_vsSpal.to_html(escape=False, index=False), unsafe_allow_html=True)
+
